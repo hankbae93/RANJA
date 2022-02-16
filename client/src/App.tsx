@@ -5,19 +5,24 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import GlobalStyle from './styles/global-style';
+/* Components */
+import Layout from './pages/layout';
+import Home from './pages/home/Home';
 
-function App() {
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
 
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<h1>Hi</h1>} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

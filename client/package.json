@@ -4,6 +4,7 @@
 	"author": "seo_jeong_rin(ranjafunc)",
 	"private": true,
 	"dependencies": {
+		"@styled-icons/bootstrap": "^10.34.0",
 		"@testing-library/jest-dom": "^5.16.2",
 		"@testing-library/react": "^12.1.2",
 		"@testing-library/user-event": "^13.5.0",
