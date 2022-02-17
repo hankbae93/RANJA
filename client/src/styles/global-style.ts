@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: #000;
+    color: ${(props) => props.theme.colors.txtColor};
     text-decoration: none;
   }
 `;

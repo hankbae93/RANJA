@@ -25,9 +25,9 @@ export const HeadIconButton = styled.button`
   width: 50px;
   height: 50px;
   border: none;
-  border-radius: 10px;
-  background-color: #fff;
+  background: none;
   color: #000;
+  border-radius: 10px;
   cursor: pointer;
 
   :hover {
@@ -35,7 +35,9 @@ export const HeadIconButton = styled.button`
   }
 
   svg {
-    width: 20px;
+    width: 65%;
+    height: 65%;
+    color: ${(props) => props.theme.colors.txtColor};
   }
 `;
 

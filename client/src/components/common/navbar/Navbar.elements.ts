@@ -13,10 +13,10 @@ export const Menu = styled.li<{ isClick: boolean }>`
   padding-left: 34px;
   margin-bottom: 30px;
   border-radius: 15px;
-  background-color: ${(props) => (props.isClick ? '#C8E9FE' : '')};
+  background-color: ${(props) => (props.isClick ? props.theme.colors.bgActiveColor : props.theme.colors.bgColor)};
 
   a {
-    color: ${(props) => (props.isClick ? ' #1a2b41' : '')};
+    color: ${(props) => (props.isClick ? props.theme.colors.navActiveTxtColor : props.theme.colors.navTxtColor)};
   }
 
   svg {
