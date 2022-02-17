@@ -17,6 +17,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;
     font-family: 'Roboto', sans-serif;
   }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;

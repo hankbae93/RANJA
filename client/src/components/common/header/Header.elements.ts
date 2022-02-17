@@ -7,7 +7,8 @@ export const Head = styled.header`
 `;
 
 export const Logo = styled.h1`
-  font-size: 32px;
+  padding-left: 17px;
+  font-size: 40px;
   font-family: 'Roboto', sans-serif;
 `;
 
