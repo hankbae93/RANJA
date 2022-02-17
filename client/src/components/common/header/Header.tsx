@@ -1,27 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
-
-export const Headings = styled.header`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-`;
+import { Link } from 'react-router-dom';
+import { Bell } from '@styled-icons/bootstrap';
+import { Head, HeadRight, Logo, HeadIconButton, HeadProfile } from './Header.elements';
 
 const Header = () => {
   return (
-    <Headings>
-      <h1>RANJA</h1>
-      <div className="header-right">
-        <button type="button">Notification</button>
-        <div>Profile</div>
-      </div>
-    </Headings>
+    <Head>
+      <Logo>RANJA</Logo>
+
+      <HeadRight className="header-right">
+        <HeadIconButton type="button">
+          <Link to="/notification">
+            <Bell />
+          </Link>
+        </HeadIconButton>
+
+        <HeadProfile as="div">
+          <Link to="/mypage">
+            <img src="assets/test_si.jpeg" alt="Profile" />
+          </Link>
+        </HeadProfile>
+      </HeadRight>
+    </Head>
   );
 };
 

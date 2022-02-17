@@ -14,6 +14,8 @@ const GlobalStyle = createGlobalStyle`
 		padding: 0;
     box-sizing: border-box;
     list-style: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 `;
 
