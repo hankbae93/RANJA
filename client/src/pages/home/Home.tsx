@@ -1,29 +1,56 @@
 import React from 'react';
+import { Container, HomeHead, HomeHeadCounts, HomeHeading } from './Home.elements';
+import { FriendList } from '../../components';
+import { FriendInfoType } from '../../types';
 
 const Home = () => {
-  const txt = 'WashingTon, DC';
+  const dummy: FriendInfoType[] = [
+    {
+      address: '서울시 제주동 감읍길 126-20, 뒷동산',
+      username: '김장춘',
+      hasFriend: 6,
+      isFriend: false,
+      homeLink: '/user/2',
+      image: 'assets/',
+      introduce: '장춘일세다.',
+    },
+    {
+      address: '서울시 제주동 감읍길 126-20, 뒷동산',
+      username: '김장춘',
+      hasFriend: 6,
+      isFriend: false,
+      homeLink: '/user/2',
+      image: 'assets/',
+      introduce: '장춘일세다.',
+    },
+    {
+      address: '서울시 제주동 감읍길 126-20, 뒷동산',
+      username: '김장춘',
+      hasFriend: 6,
+      isFriend: false,
+      homeLink: '/user/2',
+      image: 'assets/',
+      introduce: '장춘일세다.',
+    },
+    {
+      address: '서울시 제주동 감읍길 126-20, 뒷동산',
+      username: '김장춘',
+      hasFriend: 6,
+      isFriend: false,
+      homeLink: '/user/2',
+      image: 'assets/',
+      introduce: '장춘일세다.',
+    },
+  ];
   return (
-    <div style={{ border: '1px solid #ccc', height: '100%', flex: '1' }}>
-      <div>
-        <h2>Search Results &apos;{txt}&apos;</h2>
-        <span>17 recent found</span>
-      </div>
+    <Container>
+      <HomeHead>
+        <HomeHeading>My Friends</HomeHeading>
+        <HomeHeadCounts>17 recent found</HomeHeadCounts>
+      </HomeHead>
 
-      <div>
-        <div style={{ display: 'flex' }}>
-          <img alt="" src="http://placehold.it/320x100" />
-          <div>
-            <p>10th aaaaa</p>
-            <h3>김창남</h3>
-            <ul>
-              <li>친구추가</li>
-              <li>채팅</li>
-              <li>친구네 집</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+      <FriendList list={dummy} />
+    </Container>
   );
 };
 
