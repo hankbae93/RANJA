@@ -40,7 +40,7 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
 			}
 
 			const fullUser = await User.findOne({ _id: user._id });
-			const { password, updatedAt, ...others } = fullUser._doc;
+			const { password, updatedAt, _id, ...others } = fullUser._doc;
 
 			return res.status(200).json(others);
 		});
