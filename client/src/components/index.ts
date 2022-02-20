@@ -1,3 +1,4 @@
+export { default as RequiredAuth } from './common/required-auth/RequiredAuth';
 export { default as Contents } from './common/contents/Contents';
 export { default as Navbar } from './common/navbar/Navbar';
 export { default as Header } from './common/header/Header';
