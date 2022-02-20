@@ -57,9 +57,18 @@ function* loginSaga(action: Action<LoginReqType>) {
   }
 }
 
-// function* logoutSaga() {}
+function* logoutSaga() {
+  try {
+    yield put(pending());
+    yield call(UserService.logout);
+    yield put(success(null));
+    yield put(push('/'));
+  } catch (err: any) {
+    yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
+  }
+}
 
 export function* authSaga() {
   yield takeEvery(`${prefix}/LOGIN`, loginSaga);
-  // yield takeEvery(`${prefix}/LOGOUT`, logoutSaga);
+  yield takeEvery(`${prefix}/LOGOUT`, logoutSaga);
 }

@@ -8,7 +8,8 @@ export default class UserService {
     return data;
   }
 
-  public static async logout(token: string): Promise<void> {
-    await axios.delete('', { headers: { Authorization: `Bearer ${token}` } });
+  public static async logout(): Promise<void> {
+    // await axios.delete('', { headers: { Authorization: `Bearer ${token}` } });
+    await axios.post('/auth/logout');
   }
 }
