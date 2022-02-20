@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const { ObjectId } = require("mongodb");
+
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/auth");
 
 const router = require("express").Router();
@@ -52,6 +54,23 @@ router.post("/logout", isLoggedIn, (req, res) => {
 	req.logout();
 	req.session.destroy();
 	res.send("OK");
+});
+
+// 내 정보 가져오기
+router.get("/", async (req, res, next) => {
+	try {
+		if (req.user) {
+			console.log(req.user);
+			const user = await User.findOne({ _id: ObjectId(req.user.id) });
+			const { password, updatedAt, _id, ...others } = user._doc;
+			res.status(200).json(others);
+		} else {
+			res.status(200).json(null);
+		}
+	} catch (err) {
+		console.error(err);
+		next(err);
+	}
 });
 
 module.exports = router;

@@ -12,4 +12,10 @@ export default class UserService {
     // await axios.delete('', { headers: { Authorization: `Bearer ${token}` } });
     await axios.post('/auth/logout');
   }
+
+  public static async loadMyInfo(): Promise<void> {
+    const { data } = await axios.get('/auth');
+
+    return data;
+  }
 }

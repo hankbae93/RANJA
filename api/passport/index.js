@@ -1,6 +1,7 @@
 const passport = require("passport");
 const local = require("./local");
 const User = require("../models/User");
+const { ObjectId } = require("mongodb");
 
 module.exports = () => {
 	passport.serializeUser((user, done) => {
@@ -9,7 +10,7 @@ module.exports = () => {
 
 	passport.deserializeUser(async (id, done) => {
 		try {
-			const user = await User.findOne({ _id: { id } });
+			const user = await User.findOne({ _id: ObjectId(id) });
 			done(null, user);
 		} catch (error) {
 			console.error(error);

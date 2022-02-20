@@ -44,7 +44,7 @@ const reducer = handleActions<AuthState, object | null>(
 export default reducer;
 
 // saga
-export const { login, logout } = createActions('LOGIN', 'LOGOUT', { prefix });
+export const { login, logout, loadMyInfo } = createActions('LOGIN', 'LOGOUT', 'LOAD_MY_INFO', { prefix });
 
 function* loginSaga(action: Action<LoginReqType>) {
   try {
@@ -68,7 +68,19 @@ function* logoutSaga() {
   }
 }
 
+function* loadMyInfoSaga() {
+  try {
+    yield put(pending());
+    const userInfo: object = yield call(UserService.loadMyInfo);
+    yield put(success(userInfo));
+    yield put(push('/'));
+  } catch (err: any) {
+    yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
+  }
+}
+
 export function* authSaga() {
   yield takeEvery(`${prefix}/LOGIN`, loginSaga);
   yield takeEvery(`${prefix}/LOGOUT`, logoutSaga);
+  yield takeEvery(`${prefix}/LOAD_MY_INFO`, loadMyInfoSaga);
 }
