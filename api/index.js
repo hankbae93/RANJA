@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const path = require("path");
+const cors = require("cors");
 
 const authRoute = require("./routes/auth");
 const friendRequestRoute = require("./routes/friendRequest");
@@ -21,6 +22,12 @@ mongoose.connect(
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+app.use(
+	cors({
+		origin: "http://localhost:3000",
+		credentials: true,
+	})
+);
 
 app.use("/api/auth", authRoute);
 app.use("/api/friendRequest", friendRequestRoute);

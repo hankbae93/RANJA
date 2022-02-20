@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, HomeHead, HomeHeadCounts, HomeHeading } from './Home.elements';
-import { FriendList } from '../../components';
+import { Contents, FriendList } from '../../components';
 import { FriendInfoType } from '../../types';
 
 const Home = () => {
@@ -43,14 +42,9 @@ const Home = () => {
     },
   ];
   return (
-    <Container>
-      <HomeHead>
-        <HomeHeading>My Friends</HomeHeading>
-        <HomeHeadCounts>17 recent found</HomeHeadCounts>
-      </HomeHead>
-
+    <Contents title="친구 목록">
       <FriendList list={dummy} />
-    </Container>
+    </Contents>
   );
 };
 
