@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../types';
+import { useDispatch } from 'react-redux';
+import { loadMyInfo as loadMyInfoSagaStart } from '../../../redux/modules/auth';
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
-  const user = useSelector<RootState>((state) => state.auth.user);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!user) navigate('/login');
-  }, [user, navigate]);
+    dispatch(loadMyInfoSagaStart());
+  }, []);
 
   return children;
 };

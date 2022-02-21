@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AuthState, RootState } from '../../types';
 import LoadingProgressBar from '../common/loading-progress-bar/LoadingProgressBar';
@@ -48,7 +49,9 @@ const LoginForm = ({ email, handleEmail, password, handlePassword, handleSubmit 
         </LoginLabel>
       </LoginField>
       <LoginButton type="submit">{loading ? <LoadingProgressBar /> : '로그인'}</LoginButton>
-
+      <p>
+        <Link to="/sign-up">회원가입</Link>
+      </p>
       {error || null}
     </Form>
   );

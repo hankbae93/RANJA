@@ -71,9 +71,11 @@ function* logoutSaga() {
 function* loadMyInfoSaga() {
   try {
     yield put(pending());
-    const userInfo: object = yield call(UserService.loadMyInfo);
+    const userInfo: object | null = yield call(UserService.loadMyInfo);
     yield put(success(userInfo));
-    yield put(push('/'));
+    if (!userInfo) {
+      yield put(push('/login'));
+    }
   } catch (err: any) {
     yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
   }

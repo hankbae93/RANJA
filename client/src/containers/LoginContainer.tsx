@@ -11,9 +11,9 @@ const LoginContainer = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email, password);
     dispatch(loginSagaStart({ email, password }));
   };
+
   return (
     <LoginForm
       email={email}
