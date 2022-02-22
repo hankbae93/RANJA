@@ -1,11 +1,11 @@
 import React from 'react';
 import { Contents } from '../../components';
+import SignUpContainer from '../../containers/SignUpContainer';
 
 const SignUp = () => {
   return (
     <Contents title="회원가입">
-      {/* <SignUpContainer /> */}
-      회원가입
+      <SignUpContainer />
     </Contents>
   );
 };

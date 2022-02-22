@@ -9,6 +9,7 @@ const router = require("express").Router();
 // 회원가입
 router.post("/register", isNotLoggedIn, async (req, res) => {
 	try {
+		// console.log(req, "REQ_BODY");
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -16,11 +17,13 @@ router.post("/register", isNotLoggedIn, async (req, res) => {
 			username: req.body.username,
 			email: req.body.email,
 			password: hashedPassword,
+			profileImg: req.body.profileImg ?? "",
 		});
 
 		const user = await newUser.save();
 		res.status(200).json(user);
 	} catch (error) {
+		console.error(error);
 		res.status(500).json(error);
 	}
 });

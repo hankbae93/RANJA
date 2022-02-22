@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AuthState, RootState } from '../../types';
 import LoadingProgressBar from '../common/loading-progress-bar/LoadingProgressBar';
-import { Form, LoginInput, LoginField, LoginLabel, LabelSpan, LoginButton } from './LoginForm.elements';
+import { LoginForm as Form, LoginInput, LoginField, LoginLabel, LabelSpan, LoginButton } from './LoginForm.elements';
 
 interface LoginPropsType {
   email: string;
