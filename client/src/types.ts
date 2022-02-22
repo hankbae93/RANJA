@@ -15,9 +15,17 @@ export interface LoginReqType {
 
 export interface AuthState {
   token: string | null;
-  user: object | null;
+  user: UserInfoType | null;
   loading: boolean;
   error: Error | null;
+}
+
+export interface UserInfoType {
+  username: string;
+  email: string;
+  profileImg: string;
+  location: number[];
+  friendList: string[];
 }
 
 export interface RootState {

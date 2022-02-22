@@ -2,7 +2,7 @@ import { Action, createActions, handleActions } from 'redux-actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { push } from 'redux-first-history';
 import UserService from '../../services/UserService';
-import { LoginReqType, AuthState } from '../../types';
+import { LoginReqType, AuthState, UserInfoType } from '../../types';
 
 const initialState: AuthState = {
   token: null,
@@ -15,7 +15,7 @@ const prefix = 'RANJA/auth';
 
 export const { pending, success, failure } = createActions('PENDING', 'SUCCESS', 'FAILURE', { prefix });
 
-const reducer = handleActions<AuthState, object | null>(
+const reducer = handleActions<AuthState, UserInfoType | null>(
   {
     PENDING: (state) => ({
       ...state,

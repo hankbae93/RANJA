@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Bell, DoorOpen } from '@styled-icons/bootstrap';
+import { Bell, DoorOpen, PersonCircle } from '@styled-icons/bootstrap';
 import { useDispatch } from 'react-redux';
 import useAuth from '../../../hooks/useAuth';
 import { Head, HeadRight, Logo, HeadIconButton, HeadProfile } from './Header.elements';
@@ -34,7 +34,7 @@ const Header = () => {
 
         <HeadProfile as="div">
           <Link to="/mypage">
-            <img src="assets/test_si.jpeg" alt="Profile" />
+            {user && user.profileImg ? <img src={user.profileImg} alt={user.username} /> : <PersonCircle />}
           </Link>
         </HeadProfile>
       </HeadRight>
