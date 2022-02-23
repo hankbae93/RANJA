@@ -14,13 +14,13 @@ import {
 interface InputProps {
   value: FormDataType;
   list: InputDefaultTypes[];
+  loading: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  file: File | null;
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SignUpForm = ({ value, list, onChange, handleSubmit, file, onFileChange }: InputProps) => {
+const SignUpForm = ({ value, list, onChange, handleSubmit, onFileChange, loading }: InputProps) => {
   return (
     <SignUpFormContainer onSubmit={handleSubmit}>
       {list.map((input) => {
@@ -38,16 +38,10 @@ const SignUpForm = ({ value, list, onChange, handleSubmit, file, onFileChange }:
       <SignUpField>
         <SignUpLabel htmlFor="file">
           <SignUpLabelSpan>프로필 사진</SignUpLabelSpan>
-          <SignUpInput
-            type="file"
-            id="file"
-            accept="image/png, image/jpeg"
-            // value={file}
-            onChange={onFileChange}
-          />
+          <SignUpInput type="file" id="file" accept="image/png, image/jpeg" onChange={onFileChange} />
         </SignUpLabel>
       </SignUpField>
-      <SignUpButton type="submit">회원가입</SignUpButton>
+      <SignUpButton type="submit">{loading ? <LoadingProgressBar /> : '회원가입'}</SignUpButton>
     </SignUpFormContainer>
   );
 };

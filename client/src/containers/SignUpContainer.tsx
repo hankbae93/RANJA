@@ -1,13 +1,10 @@
 /* eslint-disable no-restricted-syntax */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../axios';
-// import axios from 'axios';
 import { SignUpForm } from '../components';
 import { IMGBB_KEY } from '../url';
 import { FormDataType } from '../types';
-
-type OnSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => void;
 
 const SignUpContainer = () => {
   const navigate = useNavigate();
@@ -18,6 +15,7 @@ const SignUpContainer = () => {
     confirmPassword: '',
   });
   const [file, setFile] = useState<File | null>(null);
+  const loading = useRef(false);
 
   const inputs = [
     {
@@ -41,16 +39,6 @@ const SignUpContainer = () => {
       placeholder: '이메일을 입력해주세요',
       errorMessage: '이메일 형식으로 적어주세요',
     },
-    // {
-    //   keyId: 3,
-    //   id: 'file',
-    //   name: 'file',
-    //   type: 'file',
-    //   required: true,
-    //   label: '프로필 사진',
-    //   placeholder: '프로필 사진을 등록해주세요',
-    //   // errorMessage: '이메일 형식으로 적어주세요',
-    // },
     {
       keyId: 4,
       id: 'password',
@@ -77,8 +65,9 @@ const SignUpContainer = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
-      // const formData = new FormData(e.currentTarget);
+      loading.current = true;
       const data = {
         ...value,
       };
@@ -89,22 +78,15 @@ const SignUpContainer = () => {
         const imgUploadRes = await fetch('https://api.imgbb.com/1/upload', {
           method: 'POST',
           body: imgFormData,
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            console.log(response);
-            return response;
-            // do Something
-          })
-          .catch((err) => console.log(err));
+        }).then((res) => res.json());
         const imgUrl = imgUploadRes.data.url;
         data.profileImg = imgUrl;
-        // formData.append('profileImg', imgUrl);
       }
       await axios.post('/auth/register', data);
-      alert('회원가입 성공하셨습니다.');
+      loading.current = false;
       navigate('/login');
     } catch (err) {
+      loading.current = false;
       console.error(err);
     }
   };
@@ -131,8 +113,8 @@ const SignUpContainer = () => {
       list={inputs}
       handleSubmit={handleSubmit}
       onChange={onChange}
-      file={file}
       onFileChange={onFileChange}
+      loading={loading.current}
     />
   );
 };

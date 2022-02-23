@@ -44,9 +44,22 @@ export const HeadIconButton = styled.button`
 export const HeadProfile = styled(HeadIconButton)`
   overflow: hidden;
 
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  svg {
+    /* width: 80%;
+    height: 80%; */
   }
 `;
