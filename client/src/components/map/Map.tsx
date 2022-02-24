@@ -2,15 +2,13 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import useAuth from '../../hooks/useAuth';
 import { libraries, mapContainerStyle, center, options } from './Map.settings';
-
-interface MarkerType {
-  lat: number;
-  lng: number;
-  time: Date;
-}
+import useReduxMap from '../../hooks/useReduxMap';
+import { MarkerType } from '../../types';
+import CustomInfoWindow from './custom-info-window/CustomInfoWindow';
 
 const Map = () => {
   const user = useAuth();
+  const friends = useReduxMap();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY!,
     libraries,
@@ -18,20 +16,6 @@ const Map = () => {
   const [markers, setMarkers] = useState<MarkerType[]>([]);
   const [selected, setSelected] = useState<MarkerType | null>();
   const mapRef = useRef<google.maps.Map>();
-
-  const onMapClick = useCallback(
-    (event: google.maps.MapMouseEvent): void => {
-      setMarkers((current) => [
-        ...current,
-        {
-          lat: event.latLng?.lat() ?? 0,
-          lng: event.latLng?.lng() ?? 0,
-          time: new Date(),
-        },
-      ]);
-    },
-    [markers],
-  );
 
   const onMapLoad = useCallback((map: google.maps.Map) => {
     mapRef.current = map;
@@ -50,18 +34,23 @@ const Map = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (friends.length > 0) {
+      setMarkers((prev) => {
+        const newMarkers = friends.map((friend) => {
+          return { lat: friend.location[0], lng: friend.location[1], time: new Date(), ...friend };
+        });
+
+        return prev.concat(newMarkers);
+      });
+    }
+  }, [friends]);
+
   if (loadError) return <div>map loading error </div>;
   if (!isLoaded) return <div>cannot load map</div>;
 
   return (
-    <GoogleMap
-      mapContainerStyle={mapContainerStyle}
-      center={center}
-      zoom={18}
-      options={options}
-      onLoad={onMapLoad}
-      onClick={onMapClick}
-    >
+    <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={18} options={options} onLoad={onMapLoad}>
       {markers.map((marker) => (
         <Marker
           key={marker.time.toISOString()}
@@ -74,10 +63,7 @@ const Map = () => {
 
       {selected ? (
         <InfoWindow position={{ lat: selected.lat, lng: selected.lng }} onCloseClick={() => setSelected(null)}>
-          <div>
-            <h2>응애</h2>
-            {/* <p>Spotted {formatRelatvie()}</p> */}
-          </div>
+          <CustomInfoWindow data={selected} />
         </InfoWindow>
       ) : null}
     </GoogleMap>

@@ -10,6 +10,11 @@ export interface AuthState {
   error: Error | null;
 }
 
+export interface MapState {
+  friends: UserInfoType[];
+  aroundUsers: UserInfoType[];
+}
+
 export interface UserInfoType {
   username: string;
   email: string;
@@ -20,7 +25,7 @@ export interface UserInfoType {
 
 export interface RootState {
   auth: AuthState;
-
+  map: MapState;
   // router: Reducer<RouterState<unknown>, AnyAction>;
 }
 
@@ -46,10 +51,8 @@ export interface InputDefaultTypes {
 }
 
 // map
-export interface DefaultCoordType {
-  center: {
-    lat: number;
-    lng: number;
-  };
-  zoom: number;
+export interface MarkerType extends UserInfoType {
+  lat: number;
+  lng: number;
+  time: Date;
 }
