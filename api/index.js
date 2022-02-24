@@ -7,15 +7,14 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const multer = require("multer");
-const upload = multer();
 const passport = require("passport");
-const path = require("path");
 const cors = require("cors");
+
 const passportConfig = require("./passport");
 
 const authRoute = require("./routes/auth");
 const friendRequestRoute = require("./routes/friendRequest");
+const userRoute = require("./routes/users");
 
 dotenv.config();
 passportConfig();
@@ -51,16 +50,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post("/api/uploads", upload.single("image"), async (req, res, next) => {
-	const imgData = req.file;
-	if (req.file) {
-		await fetch(
-			"https://api.imgbb.com/1/upload?expiration=600&key=fc7276cd6b10e1fbcc2c0fef52ad240e"
-		);
-	}
-});
 app.use("/api/auth", authRoute);
 app.use("/api/friendRequest", friendRequestRoute);
+app.use("/api/users", userRoute);
 
 app.listen(8000, () => {
 	console.log("Backend server is running!");

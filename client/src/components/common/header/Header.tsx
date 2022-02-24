@@ -33,7 +33,7 @@ const Header = () => {
         </HeadIconButton>
 
         <HeadProfile as="div">
-          <Link to="/mypage">
+          <Link to={user ? '/mypage' : '/login'}>
             {user && user.profileImg ? <img src={user.profileImg} alt={user.username} /> : <PersonCircle />}
           </Link>
         </HeadProfile>

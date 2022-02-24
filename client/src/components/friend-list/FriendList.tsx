@@ -1,5 +1,5 @@
 import React from 'react';
-import { FriendInfoType } from '../../types';
+import { UserInfoType } from '../../types';
 import {
   List,
   ListItem,
@@ -12,20 +12,20 @@ import {
   ListItemName,
 } from './FriendList.elements';
 
-const FriendList = ({ list }: { list: FriendInfoType[] }) => {
+const FriendList = ({ list }: { list: UserInfoType[] }) => {
   return (
     <List>
       {list.map((item, i) => {
         return (
           <ListItem>
-            <ListItemImg alt="" src="http://placehold.it/320x100" />
+            <ListItemImg alt="" src={item.profileImg || 'http://placehold.it/320x100'} />
 
             <ListItemInfo>
-              <ListItemAddress>{item.address}</ListItemAddress>
+              <ListItemAddress>{item.location.join(' / ')}</ListItemAddress>
               <ListItemName>{item.username}</ListItemName>
-              <ListItemIntroduce>{item.introduce}</ListItemIntroduce>
+              <ListItemIntroduce>{item.username}</ListItemIntroduce>
               <ListItemBtns>
-                <ListItemButton>친구추가</ListItemButton>
+                {/* <ListItemButton>친구추가</ListItemButton> */}
                 <ListItemButton>채팅</ListItemButton>
                 <ListItemButton>친구네 집</ListItemButton>
               </ListItemBtns>

@@ -3,7 +3,11 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps
 import useAuth from '../../hooks/useAuth';
 import { libraries, mapContainerStyle, center, options } from './Map.settings';
 
-type MarkerType = { lat: number; lng: number; time: Date };
+interface MarkerType {
+  lat: number;
+  lng: number;
+  time: Date;
+}
 
 const Map = () => {
   const user = useAuth();
@@ -13,6 +17,7 @@ const Map = () => {
   });
   const [markers, setMarkers] = useState<MarkerType[]>([]);
   const [selected, setSelected] = useState<MarkerType | null>();
+  const mapRef = useRef<google.maps.Map>();
 
   const onMapClick = useCallback(
     (event: google.maps.MapMouseEvent): void => {
@@ -28,14 +33,12 @@ const Map = () => {
     [markers],
   );
 
-  const mapRef = useRef<google.maps.Map>();
-  const onMapLoad = useCallback((map) => {
+  const onMapLoad = useCallback((map: google.maps.Map) => {
     mapRef.current = map;
   }, []);
 
   const panTo = useCallback(() => {
     if (mapRef.current && user?.location) {
-      console.log('하긴하니?');
       mapRef.current.panTo({ lat: user?.location[0], lng: user?.location[1] });
       mapRef.current.setZoom(18);
     }
@@ -43,7 +46,6 @@ const Map = () => {
 
   useEffect(() => {
     if (user?.location) {
-      console.log('하긴하니?');
       panTo();
     }
   }, [user]);
