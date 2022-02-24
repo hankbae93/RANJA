@@ -4,6 +4,7 @@
 	"author": "seo_jeong_rin(ranjafunc)",
 	"private": true,
 	"dependencies": {
+		"@react-google-maps/api": "^2.7.0",
 		"@styled-icons/bootstrap": "^10.34.0",
 		"@testing-library/jest-dom": "^5.16.2",
 		"@testing-library/react": "^12.1.2",
@@ -14,7 +15,6 @@
 		"@types/react-dom": "^17.0.11",
 		"@types/styled-components": "^5.1.22",
 		"axios": "^0.26.0",
-		"google-map-react": "^2.1.10",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-error-boundary": "^3.1.4",
@@ -59,7 +59,6 @@
 		]
 	},
 	"devDependencies": {
-		"@types/google-map-react": "^2.1.5",
 		"@types/react-redux": "^7.1.22",
 		"@types/react-router-dom": "^5.3.3",
 		"@types/redux-actions": "^2.6.2",

@@ -54,3 +54,12 @@ export interface InputDefaultTypes {
   placeholder?: string;
   errorMessage?: string;
 }
+
+// map
+export interface DefaultCoordType {
+  center: {
+    lat: number;
+    lng: number;
+  };
+  zoom: number;
+}

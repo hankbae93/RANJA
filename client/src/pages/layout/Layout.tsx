@@ -1,7 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Wrapper, ContentWrapper, ComponentWrapper, MapWrapper } from './Layout.elements';
-import { Header, Navbar, Map, RequiredAuth } from '../../components';
+import { Header, Navbar, RequiredAuth } from '../../components';
+import MapContainer from '../../containers/MapContainer';
 
 const Layout = () => {
   return (
@@ -17,7 +18,7 @@ const Layout = () => {
         </ComponentWrapper>
 
         <MapWrapper>
-          <Map />
+          <MapContainer />
         </MapWrapper>
       </Wrapper>
     </RequiredAuth>
