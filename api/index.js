@@ -15,6 +15,7 @@ const passportConfig = require("./passport");
 const authRoute = require("./routes/auth");
 const friendRequestRoute = require("./routes/friendRequest");
 const userRoute = require("./routes/users");
+const mapRoute = require("./routes/map");
 
 dotenv.config();
 passportConfig();
@@ -53,6 +54,7 @@ app.use(passport.session());
 app.use("/api/auth", authRoute);
 app.use("/api/friendRequest", friendRequestRoute);
 app.use("/api/users", userRoute);
+app.use("/api/map", mapRoute);
 
 app.listen(8000, () => {
 	console.log("Backend server is running!");

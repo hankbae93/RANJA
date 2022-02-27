@@ -18,6 +18,10 @@ router.post("/register", isNotLoggedIn, async (req, res) => {
 			email: req.body.email,
 			password: hashedPassword,
 			profileImg: req.body.profileImg ?? "",
+			location: {
+				type: "Point",
+				coordinates: [req.body.lng || 0, req.body.lat || 0],
+			},
 		});
 
 		const user = await newUser.save();

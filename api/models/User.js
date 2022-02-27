@@ -27,13 +27,21 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 	},
 	location: {
-		type: Array,
-		default: [37.614983, 127.057804],
+		type: {
+			type: String,
+			enum: ["Point"],
+		},
+		coordinates: {
+			type: [Number],
+			required: true,
+		},
 	},
 	friendList: {
 		type: Array,
 		default: [],
 	},
 });
+
+UserSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model("User", UserSchema);
