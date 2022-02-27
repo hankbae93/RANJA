@@ -20,6 +20,7 @@ export interface UserInfoType {
   email: string;
   profileImg: string;
   location: number[];
+  desc?: string;
   friendList: string[];
 }
 

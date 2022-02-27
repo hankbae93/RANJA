@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
-export const InfoWrapper = styled.div``;
+export const InfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 export const InfoHead = styled.div`
+  width: 200px;
   height: 150px;
   margin-bottom: 5px;
 `;

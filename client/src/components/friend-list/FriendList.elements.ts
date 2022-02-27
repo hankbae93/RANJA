@@ -45,6 +45,7 @@ export const ListItemName = styled.h3`
   margin-bottom: 25px;
   font-size: ${({ theme }) => theme.fontSizes.titleSize};
   color: ${({ theme }) => theme.colors.txtColor};
+  line-height: 1.2;
 `;
 
 export const ListItemIntroduce = styled.p`
