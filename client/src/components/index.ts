@@ -7,3 +7,4 @@ export { default as LoginForm } from './login-form/LoginForm';
 export { default as SignUpForm } from './sign-up-form/SignUpForm';
 export { default as Map } from './map/Map';
 export { default as FriendList } from './friend-list/FriendList';
+export { default as DiscoverList } from './discover-list/DiscoverList';

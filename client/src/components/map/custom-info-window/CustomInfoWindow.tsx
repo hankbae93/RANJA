@@ -1,8 +1,8 @@
 import React from 'react';
-import { MarkerType } from '../../../types';
+import { UserInfoType } from '../../../types';
 import { InfoWrapper, InfoHead, InfoThumbnail, InfoTitle } from './CustomInfoWindow.elements';
 
-const CustomInfoWindow = ({ data }: { data: MarkerType }) => {
+const CustomInfoWindow = ({ data }: { data: UserInfoType }) => {
   return (
     <InfoWrapper>
       <InfoHead>

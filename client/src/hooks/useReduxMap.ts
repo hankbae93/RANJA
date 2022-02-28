@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { RootState, UserInfoType } from '../types';
+import { MapState, RootState } from '../types';
 
 const useReduxMap = () => {
-  const friends = useSelector<RootState, UserInfoType[] | []>((state) => state.map.friends);
+  const { friends, aroundUsers } = useSelector<RootState, MapState>((state) => state.map);
 
-  return friends;
+  return { friends, aroundUsers };
 };
 
 export default useReduxMap;

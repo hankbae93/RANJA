@@ -4,7 +4,6 @@ import axios from '../axios';
 import { FriendList } from '../components';
 import useAuth from '../hooks/useAuth';
 import { UserInfoType } from '../types';
-import { update } from '../redux/modules/map';
 
 const FriendContainer = () => {
   const [list, setList] = useState<UserInfoType[]>([]);
@@ -17,9 +16,8 @@ const FriendContainer = () => {
         const { data } = await axios.get('/users/friends');
         console.log(data);
         setList(data);
-        dispatch(update(data));
       };
-      getFriends();
+      // getFriends();
     }
   }, [user]);
 

@@ -4,17 +4,18 @@ const { ObjectId } = require("mongodb");
 
 const router = require("express").Router();
 
-router.get("/current/all", async (req, res) => {
+router.post("/around", async (req, res) => {
 	try {
-		const center = req.body.center;
+		const lat = req.body.lat;
+		const lng = req.body.lng;
 		const data = await User.find(
 			{
 				location: {
 					$near: {
-						$maxDistance: 1000,
+						$maxDistance: 100,
 						$geometry: {
 							type: "Point",
-							coordinates: [center.lng, center.lat],
+							coordinates: [lng, lat],
 						},
 					},
 				},
@@ -25,6 +26,7 @@ router.get("/current/all", async (req, res) => {
 		return res.status(200).json(data);
 	} catch (err) {
 		console.error(err);
+		return res.status(500).json(err);
 	}
 });
 

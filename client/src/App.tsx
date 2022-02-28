@@ -10,6 +10,7 @@ import Layout from './pages/layout';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import SignUp from './pages/sign-up/SignUp';
+import Discover from './pages/discover/Discover';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="/discover" element={<Discover />} />
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
           </Route>
