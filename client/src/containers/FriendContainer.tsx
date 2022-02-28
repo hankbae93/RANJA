@@ -17,7 +17,7 @@ const FriendContainer = () => {
         console.log(data);
         setList(data);
       };
-      // getFriends();
+      getFriends();
     }
   }, [user]);
 

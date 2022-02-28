@@ -6,6 +6,16 @@ import { SignUpForm } from '../components';
 import { IMGBB_KEY } from '../url';
 import { FormDataType } from '../types';
 
+interface ReqDataTyp {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  profileImg?: string;
+  lat: number;
+  lng: number;
+}
+
 const SignUpContainer = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState<FormDataType>({
@@ -15,6 +25,10 @@ const SignUpContainer = () => {
     confirmPassword: '',
   });
   const [file, setFile] = useState<File | null>(null);
+  const [location, setLocation] = useState<{ address: string; coordinates: number[] }>({
+    address: '',
+    coordinates: [0, 0],
+  });
   const loading = useRef(false);
 
   const inputs = [
@@ -65,11 +79,12 @@ const SignUpContainer = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
       loading.current = true;
-      const data = {
+      const data: ReqDataTyp = {
         ...value,
+        lat: location.coordinates[1],
+        lng: location.coordinates[0],
       };
       if (file) {
         const imgFormData = new FormData();
@@ -115,6 +130,8 @@ const SignUpContainer = () => {
       onChange={onChange}
       onFileChange={onFileChange}
       loading={loading.current}
+      location={location}
+      setLocation={setLocation}
     />
   );
 };

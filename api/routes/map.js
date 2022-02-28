@@ -12,7 +12,7 @@ router.post("/around", async (req, res) => {
 			{
 				location: {
 					$near: {
-						$maxDistance: 100,
+						$maxDistance: 500,
 						$geometry: {
 							type: "Point",
 							coordinates: [lng, lat],
