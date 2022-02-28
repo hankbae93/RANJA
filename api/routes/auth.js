@@ -67,7 +67,6 @@ router.post("/logout", isLoggedIn, (req, res) => {
 router.get("/", async (req, res, next) => {
 	try {
 		if (req.user) {
-			console.log(req.user);
 			const user = await User.findOne({ _id: ObjectId(req.user.id) });
 			const { password, updatedAt, _id, ...others } = user._doc;
 			res.status(200).json(others);

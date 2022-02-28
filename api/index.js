@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // app.use(multer().array());
 app.use(helmet());
-app.use(morgan("common"));
+app.use(morgan("dev"));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
 	session({

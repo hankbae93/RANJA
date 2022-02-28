@@ -71,3 +71,12 @@ interface RequestState {
   loading: boolean;
   error: Error | null;
 }
+
+/* Mypage */
+export interface FriendRequestType {
+  id: string;
+  email: string;
+  profileImg: string;
+  username: string;
+  isAccept?: boolean;
+}

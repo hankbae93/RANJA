@@ -27,6 +27,7 @@ export const ListItemImg = styled.img`
   border-radius: 10px;
   overflow: hidden;
   object-fit: cover;
+  object-position: center top;
 `;
 
 export const ListItemInfo = styled.div`

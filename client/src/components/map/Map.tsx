@@ -17,7 +17,6 @@ const Map = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY!,
     libraries,
   });
-  const [markers, setMarkers] = useState<UserInfoType[]>([]);
   const [selected, setSelected] = useState<UserInfoType | null>();
   const mapRef = useRef<google.maps.Map>();
 
