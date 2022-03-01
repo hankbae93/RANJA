@@ -59,8 +59,7 @@ const Map = () => {
       onDragEnd={onDragEnd}
     >
       {aroundUsers.map((item) => {
-        if (item.username !== user?.username) return null;
-        if (friends.some((el) => el.username === item.username)) return null;
+        if (item.username === user?.username) return null;
 
         return (
           <Marker
@@ -78,22 +77,6 @@ const Map = () => {
           />
         );
       })}
-
-      {friends.map((item) => (
-        <Marker
-          key={item.username}
-          position={{ lat: item.location.coordinates[1], lng: item.location.coordinates[0] }}
-          onClick={() => {
-            setSelected(item);
-          }}
-          icon={{
-            url: `assets/icons/marker.svg`,
-            origin: new window.google.maps.Point(0, 0),
-            anchor: new window.google.maps.Point(15, 15),
-            scaledSize: new window.google.maps.Size(30, 30),
-          }}
-        />
-      ))}
 
       {user && (
         <Marker
