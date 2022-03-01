@@ -14,7 +14,7 @@ const prefix = 'RANJA/map';
 
 export const { pending, success, failure } = createActions('PENDING', 'SUCCESS', 'FAILURE', { prefix });
 
-const reducer = handleActions<MapState, UserInfoType[] | null>(
+const reducer = handleActions<MapState, { isFriend: boolean; data: UserInfoType[] }>(
   {
     PENDING: (state) => ({
       ...state,
@@ -22,12 +22,15 @@ const reducer = handleActions<MapState, UserInfoType[] | null>(
       error: null,
     }),
     SUCCESS: (state, action) => {
-      const { payload } = action;
+      const {
+        payload: { isFriend, data },
+      } = action;
       return {
         ...state,
         loading: false,
         error: null,
-        aroundUsers: payload ?? [],
+        ...(!isFriend && { aroundUsers: data }),
+        ...(isFriend && { friends: data }),
       };
     },
     FAILURE: (state, action: any) => ({
@@ -43,13 +46,23 @@ const reducer = handleActions<MapState, UserInfoType[] | null>(
 export default reducer;
 
 // saga
-export const { getAround } = createActions('GET_AROUND', { prefix });
+export const { getAround, getFriends } = createActions('GET_AROUND', 'GET_FRIENDS', { prefix });
 
 function* getAroundSaga(action: Action<MapCenterType>) {
   try {
     yield put(pending());
     const data: UserInfoType[] = yield call(MapService.getAround, action.payload);
-    yield put(success(data));
+    yield put(success({ data, isFriend: false }));
+  } catch (err: any) {
+    yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
+  }
+}
+
+function* getFriendsSaga() {
+  try {
+    yield put(pending());
+    const data: UserInfoType[] = yield call(MapService.getFriends);
+    yield put(success({ data, isFriend: true }));
   } catch (err: any) {
     yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
   }
@@ -57,4 +70,5 @@ function* getAroundSaga(action: Action<MapCenterType>) {
 
 export function* mapSaga() {
   yield takeLatest(`${prefix}/GET_AROUND`, getAroundSaga);
+  yield takeEvery(`${prefix}/GET_FRIENDS`, getFriendsSaga);
 }

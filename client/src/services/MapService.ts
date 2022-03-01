@@ -6,4 +6,9 @@ export default class MapService {
     const { data } = await axios.post('/map/around', reqData);
     return data;
   }
+
+  public static async getFriends(): Promise<UserInfoType[]> {
+    const { data } = await axios.get('/users/friends');
+    return data;
+  }
 }

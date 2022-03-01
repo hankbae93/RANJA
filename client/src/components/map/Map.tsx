@@ -24,7 +24,7 @@ const Map = () => {
     mapRef.current = map;
   }, []);
 
-  const onCenterChanged = useCallback(() => {
+  const onDragEnd = useCallback(() => {
     if (!mapRef.current) return;
 
     const lat = mapRef.current?.getCenter()?.lat();
@@ -56,26 +56,44 @@ const Map = () => {
       zoom={18}
       options={options}
       onLoad={onMapLoad}
-      onCenterChanged={onCenterChanged}
+      onDragEnd={onDragEnd}
     >
-      {aroundUsers.map(
-        (item) =>
-          item.username !== user?.username && (
-            <Marker
-              key={item.username}
-              position={{ lat: item.location.coordinates[1], lng: item.location.coordinates[0] }}
-              onClick={() => {
-                setSelected(item);
-              }}
-              icon={{
-                url: `assets/icons/marker.svg`,
-                origin: new window.google.maps.Point(0, 0),
-                anchor: new window.google.maps.Point(15, 15),
-                scaledSize: new window.google.maps.Size(30, 30),
-              }}
-            />
-          ),
-      )}
+      {aroundUsers.map((item) => {
+        if (item.username !== user?.username) return null;
+        if (friends.some((el) => el.username === item.username)) return null;
+
+        return (
+          <Marker
+            key={item.username}
+            position={{ lat: item.location.coordinates[1], lng: item.location.coordinates[0] }}
+            onClick={() => {
+              setSelected(item);
+            }}
+            icon={{
+              url: `assets/icons/marker.svg`,
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(15, 15),
+              scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+        );
+      })}
+
+      {friends.map((item) => (
+        <Marker
+          key={item.username}
+          position={{ lat: item.location.coordinates[1], lng: item.location.coordinates[0] }}
+          onClick={() => {
+            setSelected(item);
+          }}
+          icon={{
+            url: `assets/icons/marker.svg`,
+            origin: new window.google.maps.Point(0, 0),
+            anchor: new window.google.maps.Point(15, 15),
+            scaledSize: new window.google.maps.Size(30, 30),
+          }}
+        />
+      ))}
 
       {user && (
         <Marker

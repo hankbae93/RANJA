@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import axios from '../../axios';
 import useAuth from '../../hooks/useAuth';
+import useReduxMap from '../../hooks/useReduxMap';
 import { RootState, UserInfoType } from '../../types';
 import {
   List,
@@ -22,26 +23,29 @@ interface DiscoverListProps {
 const DiscoverList = ({ addFriends }: DiscoverListProps) => {
   const aroundUsers = useSelector<RootState, UserInfoType[]>((state) => state.map.aroundUsers);
   const user = useAuth();
+  const { friends } = useReduxMap();
 
   return (
     <List>
       {aroundUsers.map((item, i) => {
-        return (
-          item.username !== user?.username && (
-            <ListItem key={item.username}>
-              <ListItemImg alt="" src={item.profileImg || 'http://placehold.it/320x100'} />
+        if (item.username === user?.username) return null;
 
-              <ListItemInfo>
-                <ListItemName>{item.username}</ListItemName>
-                <ListItemIntroduce>{item.desc ?? `안녕하세요 ${item.username}입니다.`}</ListItemIntroduce>
-                <ListItemBtns>
+        return (
+          <ListItem key={item.username}>
+            <ListItemImg alt="" src={item.profileImg || 'http://placehold.it/320x100'} />
+
+            <ListItemInfo>
+              <ListItemName>{item.username}</ListItemName>
+              <ListItemIntroduce>{item.desc ?? `안녕하세요 ${item.username}입니다.`}</ListItemIntroduce>
+              <ListItemBtns>
+                {!friends.some((el) => el.username === item.username) && (
                   <ListItemButton onClick={() => addFriends(item.username)}>친구추가</ListItemButton>
-                  <ListItemButton>채팅</ListItemButton>
-                  <ListItemButton>친구네 집</ListItemButton>
-                </ListItemBtns>
-              </ListItemInfo>
-            </ListItem>
-          )
+                )}
+                <ListItemButton>채팅</ListItemButton>
+                <ListItemButton>친구네 집</ListItemButton>
+              </ListItemBtns>
+            </ListItemInfo>
+          </ListItem>
         );
       })}
     </List>
