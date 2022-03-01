@@ -12,6 +12,7 @@ import Login from './pages/login/Login';
 import SignUp from './pages/sign-up/SignUp';
 import Discover from './pages/discover/Discover';
 import MyPage from './pages/mypage/MyPage';
+import Chatting from './pages/chatting/Chatting';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/chat" element={<Chatting />} />
           </Route>
         </Routes>
       </Router>

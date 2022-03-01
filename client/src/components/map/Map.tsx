@@ -4,7 +4,7 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps
 import { libraries, mapContainerStyle, options, center } from './Map.settings';
 import useAuth from '../../hooks/useAuth';
 import useReduxMap from '../../hooks/useReduxMap';
-import { MarkerType, UserInfoType } from '../../types';
+import { UserInfoType } from '../../types';
 import { getAround as getAroundSagaStart } from '../../redux/modules/map';
 
 import CustomInfoWindow from './custom-info-window/CustomInfoWindow';
@@ -12,7 +12,7 @@ import CustomInfoWindow from './custom-info-window/CustomInfoWindow';
 const Map = () => {
   const dispatch = useDispatch();
   const user = useAuth();
-  const { friends, aroundUsers } = useReduxMap();
+  const { aroundUsers } = useReduxMap();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY!,
     libraries,
