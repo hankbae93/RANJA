@@ -22,6 +22,7 @@ const FriendRequestList = ({
   return (
     <List>
       {friendRequests.map((item, i) => {
+        console.log(item.isAccept, 'dd');
         return (
           <ListItem key={item.username}>
             <ListItemImg alt="" src={item.profileImg || 'http://placehold.it/320x100'} />
@@ -30,7 +31,7 @@ const FriendRequestList = ({
               <ListItemName>{item.username}</ListItemName>
               {/* <ListItemIntroduce>{item.desc ?? `안녕하세요 ${item.username}입니다.`}</ListItemIntroduce> */}
               <ListItemBtns>
-                {item.isAccept === null ? (
+                {item.isAccept === undefined ? (
                   <>
                     <ListItemButton onClick={() => acceptFriends(item.id, true)}>수락</ListItemButton>
                     <ListItemButton onClick={() => acceptFriends(item.id, false)}>거절</ListItemButton>

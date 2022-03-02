@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const server = require("http").createServer(app);
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
@@ -10,12 +11,15 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const cors = require("cors");
 
+const webSocket = require("./socket");
 const passportConfig = require("./passport");
 
 const authRoute = require("./routes/auth");
 const friendRequestRoute = require("./routes/friendRequest");
 const userRoute = require("./routes/users");
 const mapRoute = require("./routes/map");
+const roomRoute = require("./routes/room");
+const chatRoute = require("./routes/chat");
 
 dotenv.config();
 passportConfig();
@@ -55,7 +59,11 @@ app.use("/api/auth", authRoute);
 app.use("/api/friendRequest", friendRequestRoute);
 app.use("/api/users", userRoute);
 app.use("/api/map", mapRoute);
+app.use("/api/room", roomRoute);
+app.use("/api/chat", chatRoute);
 
-app.listen(8000, () => {
+server.listen(8000, () => {
 	console.log("Backend server is running!");
 });
+
+webSocket(server, app);

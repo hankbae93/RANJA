@@ -39,3 +39,21 @@ export const ChatButton = styled.button`
   padding: 5px 10px;
   height: 100%;
 `;
+
+export const ChatRoomIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+`;
+
+export const ChatRoomThumbnail = styled.img`
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  object-position: center top;
+`;

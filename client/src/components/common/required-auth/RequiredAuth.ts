@@ -26,7 +26,9 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
     const publicPath = ['/', '/home', '/discover', '/sign-up', '/login'];
 
     if (!publicPath.some((path) => path === pathname) && !user) {
-      navigate('/');
+      console.log(user);
+
+      // navigate('/');
     }
   }, [location.pathname, user]);
 
