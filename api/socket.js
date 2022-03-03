@@ -61,7 +61,7 @@ module.exports = (server, app) => {
 			const user = getUser(socket.id);
 			console.log(message);
 			chat.to(user.room).emit("message", {
-				username: message.username,
+				username: message.user,
 				chat: message.chat,
 			});
 			console.table(users);
