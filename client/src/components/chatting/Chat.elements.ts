@@ -15,13 +15,6 @@ export const ChatLog = styled.ul`
   overflow-y: scroll;
 `;
 
-export const ChatMessage = styled.li<{ isMe: boolean }>`
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 5px 15px;
-  align-self: ${({ isMe }) => (isMe ? 'end' : 'baseline')};
-`;
-
 export const ChatForm = styled.form`
   display: flex;
   align-items: center;
@@ -56,4 +49,43 @@ export const ChatRoomThumbnail = styled.img`
   height: 50px;
   object-fit: cover;
   object-position: center top;
+`;
+
+// Message Element
+export const ChatMessage = styled.div<{ isMe: boolean }>`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  align-self: ${({ isMe }) => (!isMe ? 'end' : 'baseline')};
+`;
+
+export const ChatPartnerHead = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px 10px;
+`;
+
+export const ChatPartnerProfile = styled.img`
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  object-position: center top;
+`;
+
+export const ChatText = styled.p`
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  span {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #ccc;
+  }
 `;

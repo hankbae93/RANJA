@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import axios from '../../axios';
 import useAuth from '../../hooks/useAuth';
+import { UserInfoType } from '../../types';
 import { ChatButton, ChatForm, ChatInput, ChatLog, ChatWrapper } from './Chat.elements';
 import Message from './Message';
 
@@ -17,9 +18,11 @@ const Chat = () => {
   const user = useAuth();
   const params = useParams();
   const { id } = params;
+  const [partner, setPartner] = useState<UserInfoType | null>(null);
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const socket = useRef<any>(null);
   const txtRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const chatRef = useRef() as React.MutableRefObject<HTMLUListElement>;
 
   useEffect(() => {
     if (user && id) {
@@ -31,6 +34,7 @@ const Chat = () => {
       socket.current.on('message', (data: ChatMessageType) => {
         console.log(data, '도착');
         setMessages((prev) => prev.concat(data));
+        chatRef.current.scrollTop = chatRef.current.scrollHeight;
       });
     }
   }, [user, id]);
@@ -38,6 +42,8 @@ const Chat = () => {
   useEffect(() => {
     const getChatMessages = async () => {
       const { data } = await axios.get(`/chat/room/${id}`);
+      console.log(data, '/chat/room/id message');
+      setPartner(data.partner);
       setMessages(data.chats);
     };
 
@@ -65,9 +71,17 @@ const Chat = () => {
 
   return (
     <ChatWrapper>
-      <ChatLog>
+      <ChatLog ref={chatRef}>
         {messages.map((data) => {
-          return <Message key={data.createdAt} txt={data.chat} isMe={user?.username === data.username} />;
+          return (
+            <Message
+              key={data.createdAt}
+              txt={data.chat}
+              isMe={user?.username === data.username}
+              partner={partner}
+              createdAt={data.createdAt}
+            />
+          );
         })}
       </ChatLog>
 

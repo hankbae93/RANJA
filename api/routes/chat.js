@@ -1,5 +1,6 @@
 const Room = require("../models/Room");
 const Chat = require("../models/Chat");
+const User = require("../models/User");
 
 const { isLoggedIn } = require("../middlewares/auth");
 const { ObjectId } = require("mongodb");
@@ -14,10 +15,15 @@ router.get("/room/:id", isLoggedIn, async (req, res, next) => {
 		}
 
 		const chats = await Chat.find({ room: room._id }).sort("createdAt");
+
+		const partnerId = room.owner.filter((id) => id !== req.user.id)[0];
+		const partner = await User.findOne({ _id: ObjectId(partnerId) });
+		const { _id, password, ...partnerInfo } = partner._doc;
+
 		return res.status(200).json({
 			room,
-			title: room.title,
 			chats,
+			partner: partnerInfo,
 		});
 	} catch (error) {
 		console.error(error);
