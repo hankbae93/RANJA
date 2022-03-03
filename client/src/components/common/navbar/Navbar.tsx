@@ -50,7 +50,7 @@ const Navbar = () => {
     <Nav>
       <ul>
         {linksData.map((link, i) => (
-          <Menu isClick={isPaths[i]}>
+          <Menu isClick={isPaths[i]} key={link.path}>
             <Link to={link.path}>
               {link.icon}
               <span>{link.title}</span>

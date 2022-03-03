@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const Room = require("../models/Room");
-const Chat = require("../models/Chat");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/auth");
 const { ObjectId } = require("mongodb");
 const router = require("express").Router();
@@ -34,8 +33,9 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 			owner: [req.user.id, receiver.id],
 			password: req.body.password ?? "",
 		});
+
 		const io = req.app.get("io");
-		io.of("/room").emit("newRoom", newRoom);
+		// io.of("/room").emit("newRoom", newRoom);
 		res.status(200).json("생성");
 	} catch (error) {
 		console.error(error);

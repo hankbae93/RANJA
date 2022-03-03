@@ -29,6 +29,7 @@ const Chat = () => {
 
       socket.current.emit('join', { username: user?.username, room: id });
       socket.current.on('message', (data: ChatMessageType) => {
+        console.log(data, '도착');
         setMessages((prev) => prev.concat(data));
       });
     }
@@ -48,7 +49,13 @@ const Chat = () => {
       e.preventDefault();
 
       try {
-        await axios.post(`/chat/room/${id}/chat`, { id, chat: txtRef.current.value, user: user?.username });
+        const data = {
+          roomId: id,
+          chat: txtRef.current.value,
+        };
+        await axios.post(`/chat/message`, data);
+        txtRef.current.value = '';
+        txtRef.current.focus();
       } catch (err) {
         console.log(err);
       }
@@ -60,7 +67,7 @@ const Chat = () => {
     <ChatWrapper>
       <ChatLog>
         {messages.map((data) => {
-          return <Message txt={data.chat} isMe={user?.username === data.username} />;
+          return <Message key={data.createdAt} txt={data.chat} isMe={user?.username === data.username} />;
         })}
       </ChatLog>
 
