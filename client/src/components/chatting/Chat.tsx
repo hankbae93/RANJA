@@ -7,10 +7,10 @@ import { ChatButton, ChatForm, ChatInput, ChatLog, ChatWrapper } from './Chat.el
 import Message from './Message';
 
 interface ChatMessageType {
-  room?: any;
-  user?: string;
-  username?: string;
+  room: string;
+  username: string;
   chat: string;
+  createdAt: string;
 }
 
 const Chat = () => {
@@ -25,12 +25,11 @@ const Chat = () => {
     if (user && id) {
       socket.current = io('http://localhost:8000/chat', {
         path: '/socket.io',
-        // transports: ['websocket'],
       });
 
       socket.current.emit('join', { username: user?.username, room: id });
-      socket.current.on('message', (data: { chat: string; username: string }) => {
-        setMessages((prev) => prev.concat({ chat: data.chat, user: data.username }));
+      socket.current.on('message', (data: ChatMessageType) => {
+        setMessages((prev) => prev.concat(data));
       });
     }
   }, [user, id]);
@@ -50,7 +49,6 @@ const Chat = () => {
 
       try {
         await axios.post(`/chat/room/${id}/chat`, { id, chat: txtRef.current.value, user: user?.username });
-        socket.current.emit('sendMessage', { chat: txtRef.current.value, user: user?.username });
       } catch (err) {
         console.log(err);
       }
@@ -62,8 +60,7 @@ const Chat = () => {
     <ChatWrapper>
       <ChatLog>
         {messages.map((data) => {
-          console.log(data);
-          return <Message txt={data.chat} isMe={user?.username === data.user} />;
+          return <Message txt={data.chat} isMe={user?.username === data.username} />;
         })}
       </ChatLog>
 

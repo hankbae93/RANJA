@@ -31,8 +31,11 @@ router.post("/room/:id/chat", isLoggedIn, async (req, res, next) => {
 			room: req.params.id,
 			user: req.user.id,
 			chat: req.body.chat,
+			username: req.user.username,
 		});
-		req.app.get("io").of("/chat").to(req.params.id).emit("chat", chat);
+		const { _id, user, ...rest } = chat;
+
+		req.app.get("io").of("/chat").to(req.params.id).emit("message", rest);
 		res.send("ok");
 	} catch (error) {
 		console.error(error);

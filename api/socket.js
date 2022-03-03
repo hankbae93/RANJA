@@ -57,14 +57,8 @@ module.exports = (server, app) => {
 			socket.join(user.room);
 		});
 
-		socket.on("sendMessage", (message) => {
-			const user = getUser(socket.id);
-			console.log(message);
-			chat.to(user.room).emit("message", {
-				username: message.user,
-				chat: message.chat,
-			});
-			console.table(users);
+		socket.on("message", (data) => {
+			socket.to(data.room).emit(data);
 		});
 
 		socket.on("disconnect", () => {

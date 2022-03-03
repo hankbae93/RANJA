@@ -19,7 +19,7 @@ export const ChatMessage = styled.li<{ isMe: boolean }>`
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 5px 15px;
-  align-self: ${({ isMe }) => (!isMe ? 'end' : 'baseline')};
+  align-self: ${({ isMe }) => (isMe ? 'end' : 'baseline')};
 `;
 
 export const ChatForm = styled.form`

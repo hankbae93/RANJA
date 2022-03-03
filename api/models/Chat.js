@@ -15,6 +15,10 @@ const chatSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	username: {
+		type: String,
+		required: true,
+	},
 	chat: String,
 	gif: String,
 	createdAt: {
