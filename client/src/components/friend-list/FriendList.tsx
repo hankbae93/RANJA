@@ -1,12 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useNewRoom from '../../hooks/useNewRoom';
 import { UserInfoType } from '../../types';
 import {
   List,
   ListItem,
-  ListItemAddress,
   ListItemBtns,
   ListItemButton,
   ListItemImg,
@@ -16,20 +14,8 @@ import {
 } from './FriendList.elements';
 
 const FriendList = ({ list }: { list: UserInfoType[] }) => {
-  const navigate = useNavigate();
   const user = useAuth();
-  const createRoom = useNewRoom();
-
-  const chat = async (username: string, max?: number) => {
-    try {
-      const txt = await createRoom(username, max);
-      if (txt !== '실패') {
-        navigate(`/chat/${username}`);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const { chat } = useNewRoom();
 
   return (
     <List>

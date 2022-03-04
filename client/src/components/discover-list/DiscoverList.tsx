@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import axios from '../../axios';
 import useAuth from '../../hooks/useAuth';
+import useNewRoom from '../../hooks/useNewRoom';
 import useReduxMap from '../../hooks/useReduxMap';
 import { RootState, UserInfoType } from '../../types';
 import {
@@ -24,6 +24,7 @@ const DiscoverList = ({ addFriends }: DiscoverListProps) => {
   const aroundUsers = useSelector<RootState, UserInfoType[]>((state) => state.map.aroundUsers);
   const user = useAuth();
   const { friends } = useReduxMap();
+  const { chat } = useNewRoom();
 
   return (
     <List>
@@ -38,10 +39,12 @@ const DiscoverList = ({ addFriends }: DiscoverListProps) => {
               <ListItemName>{item.username}</ListItemName>
               <ListItemIntroduce>{item.desc ?? `안녕하세요 ${item.username}입니다.`}</ListItemIntroduce>
               <ListItemBtns>
-                {!friends.some((el) => el.username === item.username) && (
+                {!friends.some((el) => el.username === item.username) ? (
                   <ListItemButton onClick={() => addFriends(item.username)}>친구추가</ListItemButton>
+                ) : (
+                  <ListItemButton onClick={() => chat(item.username)}>채팅</ListItemButton>
                 )}
-                <ListItemButton>채팅</ListItemButton>
+
                 <ListItemButton>친구네 집</ListItemButton>
               </ListItemBtns>
             </ListItemInfo>

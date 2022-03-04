@@ -20,6 +20,7 @@ router.get("/", isLoggedIn, async (req, res, next) => {
 		res.status(200).json(newArr);
 	} catch (err) {
 		console.log(err);
+
 		next(err);
 	}
 });
@@ -27,16 +28,25 @@ router.get("/", isLoggedIn, async (req, res, next) => {
 router.post("/", isLoggedIn, async (req, res, next) => {
 	try {
 		const receiver = await User.findOne({ username: req.body.username });
-		const newRoom = await Room.create({
-			title: req.body.title ?? receiver.username,
-			max: req.body.max ?? 2,
-			owner: [req.user.id, receiver.id],
-			password: req.body.password ?? "",
+
+		const isRoom = await Room.findOne({
+			owner: { $in: receiver._id.toString() },
 		});
 
-		const io = req.app.get("io");
-		// io.of("/room").emit("newRoom", newRoom);
-		res.status(200).json("생성");
+		if (isRoom) {
+			return res.status(200).json(isRoom._id);
+		} else {
+			const newRoom = await Room.create({
+				title: req.body.title ?? receiver.username,
+				max: req.body.max ?? 2,
+				owner: [req.user.id, receiver.id],
+				password: req.body.password ?? "",
+			});
+
+			const io = req.app.get("io");
+			return res.status(200).json(newRoom);
+			// io.of("/room").emit("newRoom", newRoom);
+		}
 	} catch (error) {
 		console.error(error);
 		next(error);

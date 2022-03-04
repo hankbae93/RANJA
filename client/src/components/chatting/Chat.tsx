@@ -32,7 +32,6 @@ const Chat = () => {
 
       socket.current.emit('join', { username: user?.username, room: id });
       socket.current.on('message', (data: ChatMessageType) => {
-        console.log(data, '도착');
         setMessages((prev) => prev.concat(data));
         chatRef.current.scrollTop = chatRef.current.scrollHeight;
       });
@@ -42,7 +41,6 @@ const Chat = () => {
   useEffect(() => {
     const getChatMessages = async () => {
       const { data } = await axios.get(`/chat/room/${id}`);
-      console.log(data, '/chat/room/id message');
       setPartner(data.partner);
       setMessages(data.chats);
     };
