@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../axios';
 
@@ -17,6 +16,7 @@ const useNewRoom = () => {
   const chat = async (username: string, max?: number) => {
     try {
       const txt = await createRoom(username, max);
+      console.log(txt);
       if (txt !== '실패') {
         navigate(`/chat/${txt}`);
       }

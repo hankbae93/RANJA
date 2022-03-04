@@ -80,3 +80,17 @@ export interface FriendRequestType {
   username: string;
   isAccept?: boolean;
 }
+
+// Chat
+
+export interface ChatRoomType {
+  createdAt: string;
+  max: number;
+  owner: string[];
+  password: string;
+  _id: string;
+  title: string;
+  partner: {
+    profileImg: string;
+  };
+}

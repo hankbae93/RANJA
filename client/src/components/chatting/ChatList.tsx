@@ -1,18 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ChatRoomType } from '../../types';
 import { ChatRoomIcon, ChatRoomThumbnail } from './Chat.elements';
-
-interface ChatRoomType {
-  createdAt: string;
-  max: number;
-  owner: string[];
-  password: string;
-  _id: string;
-  title: string;
-  partner: {
-    profileImg: string;
-  };
-}
 
 const ChatList = ({ rooms }: { rooms: ChatRoomType[] }) => {
   const navigate = useNavigate();

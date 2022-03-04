@@ -43,9 +43,7 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 				password: req.body.password ?? "",
 			});
 
-			const io = req.app.get("io");
-			return res.status(200).json(newRoom);
-			// io.of("/room").emit("newRoom", newRoom);
+			return res.status(200).json(newRoom._id.toString());
 		}
 	} catch (error) {
 		console.error(error);
