@@ -19,14 +19,18 @@ module.exports = (server, app) => {
 	});
 
 	chat.on("connection", (socket) => {
+		const req = socket.request;
+		const roomId = req._query.roomId;
+		console.log(`${roomId} 방 채팅에 접속`);
+		socket.join(roomId);
+
 		socket.on("join", (data) => {
 			socket.join(data.room);
 		});
 
-		socket.on("message", (data) => {
-			socket.to(data.room).emit(data);
+		socket.on("disconnect", () => {
+			console.log(`${roomId} 방 채팅 나감`);
+			socket.leave(roomId);
 		});
-
-		socket.on("disconnect", () => {});
 	});
 };

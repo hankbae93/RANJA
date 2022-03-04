@@ -40,7 +40,7 @@ router.post("/message", isLoggedIn, async (req, res, next) => {
 			chat,
 			username: req.user.username,
 		});
-		const { _id, user, ...rest } = newChat._doc;
+		const { user, ...rest } = newChat._doc;
 
 		const io = req.app.get("io");
 		io.of("/chat").to(roomId).emit("message", rest);

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { io } from 'socket.io-client';
 import { ChatRoomIcon, ChatRoomThumbnail } from './Chat.elements';
 
 interface ChatRoomType {
@@ -13,7 +12,6 @@ interface ChatRoomType {
   partner: {
     profileImg: string;
   };
-  // _v: number;
 }
 
 const ChatList = ({ rooms }: { rooms: ChatRoomType[] }) => {

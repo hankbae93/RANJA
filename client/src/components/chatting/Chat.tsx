@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
@@ -12,6 +13,7 @@ interface ChatMessageType {
   username: string;
   chat: string;
   createdAt: string;
+  _id: string;
 }
 
 const Chat = () => {
@@ -28,14 +30,19 @@ const Chat = () => {
     if (user && id) {
       socket.current = io('http://localhost:8000/chat', {
         path: '/socket.io',
+        query: {
+          roomId: id,
+        },
       });
 
-      socket.current.emit('join', { username: user?.username, room: id });
       socket.current.on('message', (data: ChatMessageType) => {
         setMessages((prev) => prev.concat(data));
         chatRef.current.scrollTop = chatRef.current.scrollHeight;
       });
     }
+    return () => {
+      socket.current?.disconnect();
+    };
   }, [user, id]);
 
   useEffect(() => {
@@ -43,6 +50,9 @@ const Chat = () => {
       const { data } = await axios.get(`/chat/room/${id}`);
       setPartner(data.partner);
       setMessages(data.chats);
+      if (chatRef.current) {
+        chatRef.current.scrollTop = chatRef.current.scrollHeight;
+      }
     };
 
     getChatMessages();
@@ -64,7 +74,7 @@ const Chat = () => {
         console.log(err);
       }
     },
-    [user],
+    [user, id],
   );
 
   return (

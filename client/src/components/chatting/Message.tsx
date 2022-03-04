@@ -13,8 +13,8 @@ interface MessageProps {
 
 const Message = ({ txt, isMe, partner, createdAt }: MessageProps) => {
   return (
-    <ChatMessage isMe={isMe}>
-      {isMe && (
+    <ChatMessage isMe={!isMe}>
+      {!isMe && (
         <ChatPartnerHead>
           <ChatPartnerProfile src={partner?.profileImg} alt={partner?.username} />
           <p>{partner?.username}</p>
