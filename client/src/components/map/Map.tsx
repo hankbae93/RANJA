@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { libraries, mapContainerStyle, options, center } from './Map.settings';
+import { libraries, mapContainerStyle, options } from './Map.settings';
 import useAuth from '../../hooks/useAuth';
 import useReduxMap from '../../hooks/useReduxMap';
 import { UserInfoType } from '../../types';
@@ -12,7 +12,7 @@ import CustomInfoWindow from './custom-info-window/CustomInfoWindow';
 const Map = () => {
   const dispatch = useDispatch();
   const user = useAuth();
-  const { aroundUsers } = useReduxMap();
+  const { aroundUsers, center } = useReduxMap();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY!,
     libraries,
@@ -37,6 +37,7 @@ const Map = () => {
     if (mapRef.current && user?.location) {
       mapRef.current.panTo({ lat: user.location.coordinates[1], lng: user.location.coordinates[0] });
       mapRef.current.setZoom(18);
+      dispatch(getAroundSagaStart({ lat: user.location.coordinates[1], lng: user.location.coordinates[0] }));
     }
   }, [mapRef, user]);
 
@@ -45,6 +46,14 @@ const Map = () => {
       panTo();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (mapRef.current && user) {
+      mapRef.current.panTo({ lat: center.lat, lng: center.lng });
+      mapRef.current.setZoom(18);
+      dispatch(getAroundSagaStart(center));
+    }
+  }, [center, user]);
 
   if (loadError) return <div>map loading error </div>;
   if (!isLoaded) return <div>cannot load map</div>;

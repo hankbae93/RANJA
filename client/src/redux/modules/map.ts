@@ -6,13 +6,19 @@ import { MapState, MapCenterType, UserInfoType } from '../../types';
 const initialState: MapState = {
   friends: [],
   aroundUsers: [],
+  center: {
+    lat: 0,
+    lng: 0,
+  },
   loading: false,
   error: null,
 };
 
 const prefix = 'RANJA/map';
 
-export const { pending, success, failure } = createActions('PENDING', 'SUCCESS', 'FAILURE', { prefix });
+export const { pending, success, failure, update } = createActions('PENDING', 'SUCCESS', 'FAILURE', 'UPDATE', {
+  prefix,
+});
 
 const reducer = handleActions<MapState, { isFriend: boolean; data: UserInfoType[] }>(
   {
@@ -37,6 +43,13 @@ const reducer = handleActions<MapState, { isFriend: boolean; data: UserInfoType[
       ...state,
       loading: false,
       error: action.payload,
+    }),
+    UPDATE: (state, action: any) => ({
+      ...state,
+      center: {
+        lat: action.payload.lat ?? state.center.lat,
+        lng: action.payload.lng ?? state.center.lng,
+      },
     }),
   },
   initialState,

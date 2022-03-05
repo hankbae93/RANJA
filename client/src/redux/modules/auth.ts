@@ -13,7 +13,9 @@ const initialState: AuthState = {
 
 const prefix = 'RANJA/auth';
 
-export const { pending, success, failure } = createActions('PENDING', 'SUCCESS', 'FAILURE', { prefix });
+export const { pending, success, failure, initialize } = createActions('PENDING', 'SUCCESS', 'FAILURE', 'INITIALIZE', {
+  prefix,
+});
 
 const reducer = handleActions<AuthState, UserInfoType | null>(
   {
@@ -35,6 +37,9 @@ const reducer = handleActions<AuthState, UserInfoType | null>(
       ...state,
       loading: false,
       error: action.payload,
+    }),
+    INITIALIZE: (state) => ({
+      ...initialState,
     }),
   },
   initialState,
@@ -61,7 +66,7 @@ function* logoutSaga() {
   try {
     yield put(pending());
     yield call(UserService.logout);
-    yield put(success(null));
+    yield put(initialize());
     yield put(push('/'));
   } catch (err: any) {
     yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));

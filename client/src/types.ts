@@ -47,7 +47,7 @@ export interface InputDefaultTypes {
 export interface MapState extends RequestState {
   friends: UserInfoType[];
   aroundUsers: UserInfoType[];
-  // center: MapCenterType;
+  center: MapCenterType;
 }
 export interface MarkerType extends UserInfoType {
   lat: number;

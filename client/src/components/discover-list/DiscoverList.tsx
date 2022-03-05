@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import useAuth from '../../hooks/useAuth';
+import useMap from '../../hooks/useMap';
 import useNewRoom from '../../hooks/useNewRoom';
 import useReduxMap from '../../hooks/useReduxMap';
 import { RootState, UserInfoType } from '../../types';
@@ -25,6 +26,7 @@ const DiscoverList = ({ addFriends }: DiscoverListProps) => {
   const user = useAuth();
   const { friends } = useReduxMap();
   const { chat } = useNewRoom();
+  const { moveMap } = useMap();
 
   return (
     <List>
@@ -45,7 +47,11 @@ const DiscoverList = ({ addFriends }: DiscoverListProps) => {
                   <ListItemButton onClick={() => chat(item.username)}>채팅</ListItemButton>
                 )}
 
-                <ListItemButton>친구네 집</ListItemButton>
+                <ListItemButton
+                  onClick={() => moveMap({ lat: item.location.coordinates[1], lng: item.location.coordinates[0] })}
+                >
+                  친구네 집
+                </ListItemButton>
               </ListItemBtns>
             </ListItemInfo>
           </ListItem>

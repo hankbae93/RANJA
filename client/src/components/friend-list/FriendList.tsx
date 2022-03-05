@@ -1,5 +1,6 @@
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
+import useMap from '../../hooks/useMap';
 import useNewRoom from '../../hooks/useNewRoom';
 import { UserInfoType } from '../../types';
 import {
@@ -16,6 +17,7 @@ import {
 const FriendList = ({ list }: { list: UserInfoType[] }) => {
   const user = useAuth();
   const { chat } = useNewRoom();
+  const { moveMap } = useMap();
 
   return (
     <List>
@@ -31,7 +33,11 @@ const FriendList = ({ list }: { list: UserInfoType[] }) => {
                 <ListItemBtns>
                   {/* <ListItemButton>친구추가</ListItemButton> */}
                   <ListItemButton onClick={() => chat(item.username)}>채팅</ListItemButton>
-                  <ListItemButton>친구네 집</ListItemButton>
+                  <ListItemButton
+                    onClick={() => moveMap({ lat: item.location.coordinates[1], lng: item.location.coordinates[0] })}
+                  >
+                    친구네 집
+                  </ListItemButton>
                 </ListItemBtns>
               </ListItemInfo>
             </ListItem>
