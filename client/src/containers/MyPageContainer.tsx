@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../axios';
-import FriendRequestList from '../components/friend-request-list/FriendRequestList';
-import { FriendRequestType } from '../types';
+import { CardDataType } from '../components/card/Card';
+import FriendRequestList from '../components/friend-request/FriendRequestList';
 
 const MyPageContainer = () => {
-  const [friendRequests, setFriendRequests] = useState<FriendRequestType[]>([]);
+  const [friendRequests, setFriendRequests] = useState<CardDataType[]>([]);
 
   const getFriendRequests = async (): Promise<void> => {
     try {
@@ -19,15 +19,7 @@ const MyPageContainer = () => {
     getFriendRequests();
   }, []);
 
-  const acceptFriends = async (id: string, isAccept: boolean): Promise<void> => {
-    try {
-      await axios.post(`/friendRequest/accept/${id}`, { isAccept });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return <FriendRequestList friendRequests={friendRequests} acceptFriends={acceptFriends} />;
+  return <FriendRequestList list={friendRequests} />;
 };
 
 export default MyPageContainer;

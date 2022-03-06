@@ -31,10 +31,19 @@ const useCard = (item: UserInfoType) => {
     moveMap(coord);
   }, [item]);
 
+  const acceptFriends = async (id: string, isAccept: boolean): Promise<void> => {
+    try {
+      await axios.post(`/friendRequest/accept/${id}`, { isAccept });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return {
     addFriends,
     moveUserChat,
     moveUserHouse,
+    acceptFriends,
   };
 };
 

@@ -3,32 +3,42 @@ import { UserInfoType } from '../../types';
 import { Card as Wrapper, CardBtns, CardButton, CardImg, CardInfo, CardIntroduce, CardName } from './Card.elements';
 import useCard from './useCard';
 
+export interface CardDataType extends UserInfoType {
+  isAccept?: boolean | undefined;
+  id?: string;
+}
+
 interface CardProps {
-  item: UserInfoType;
+  item: CardDataType;
   type: 'USER' | 'REQUEST';
 }
 
 const Card: React.FC<CardProps> = ({ item, type }) => {
-  const { addFriends, moveUserChat, moveUserHouse } = useCard(item);
+  const { addFriends, moveUserChat, moveUserHouse, acceptFriends } = useCard(item);
 
   const renderButton = (): React.ReactNode | false => {
     if (type === 'USER') {
       return (
-        <>
+        <CardBtns>
           <CardButton onClick={addFriends}>친구 추가</CardButton>
           <CardButton onClick={moveUserChat}>채팅</CardButton>
           <CardButton onClick={moveUserHouse}>HOME</CardButton>
-        </>
+        </CardBtns>
       );
     }
 
     if (type === 'REQUEST') {
       return (
-        <>
-          <CardButton onClick={addFriends}>친구 추가</CardButton>
-          <CardButton onClick={moveUserChat}>채팅</CardButton>
-          <CardButton onClick={moveUserHouse}>HOME</CardButton>
-        </>
+        <CardBtns>
+          {item.isAccept === undefined && item.id ? (
+            <>
+              <CardButton onClick={() => acceptFriends(item.id ?? '', true)}>수락</CardButton>
+              <CardButton onClick={() => acceptFriends(item.id ?? '', false)}>거절</CardButton>
+            </>
+          ) : (
+            <p>{item.isAccept ? '수락하셧습니다.' : '거절하셨습니다.'}</p>
+          )}
+        </CardBtns>
       );
     }
 
@@ -42,7 +52,7 @@ const Card: React.FC<CardProps> = ({ item, type }) => {
       <CardInfo>
         <CardName>{item.username}</CardName>
         <CardIntroduce>{item.desc ?? `안녕하세요 ${item.username}입니다.`}</CardIntroduce>
-        <CardBtns>{renderButton()}</CardBtns>
+        {renderButton()}
       </CardInfo>
     </Wrapper>
   );
