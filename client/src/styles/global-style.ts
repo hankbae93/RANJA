@@ -7,8 +7,6 @@ const GlobalStyle = createGlobalStyle`
   html,
   body {
     overflow: hidden;
-    overflow-y: scroll;
-    height: 200vh;
   }
 
   * {

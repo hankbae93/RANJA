@@ -1,6 +1,6 @@
 import React from 'react';
-import { Contents } from '../../components';
-import SignUpContainer from '../../containers/SignUpContainer';
+import { Contents } from '../components';
+import SignUpContainer from '../containers/SignUpContainer';
 
 const SignUp = () => {
   return (

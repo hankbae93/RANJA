@@ -1,6 +1,6 @@
 import React from 'react';
-import { Contents } from '../../components';
-import ChattingContainer from '../../containers/ChattingContainer';
+import { Contents } from '../components';
+import ChattingContainer from '../containers/ChattingContainer';
 
 const Chatting = () => {
   return (

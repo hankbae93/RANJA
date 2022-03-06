@@ -1,19 +1,12 @@
 import React from 'react';
-import axios from '../axios';
-
-import { DiscoverList } from '../components';
+import { useSelector } from 'react-redux';
+import { RootState, UserInfoType } from '../types';
+import { Discover } from '../components';
 
 const DiscoverContainer = () => {
-  const addFriends = async (name: string) => {
-    try {
-      await axios.post(`/friendRequest/${name}`);
-      alert('친구 요청이 성공하셧습니다.');
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const aroundUsers = useSelector<RootState, UserInfoType[]>((state) => state.map.aroundUsers);
 
-  return <DiscoverList addFriends={addFriends} />;
+  return <Discover list={aroundUsers} />;
 };
 
 export default DiscoverContainer;

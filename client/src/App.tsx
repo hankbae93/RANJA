@@ -7,12 +7,12 @@ import { history } from '.';
 import { theme } from './styles/theme';
 import GlobalStyle from './styles/global-style';
 import Layout from './pages/layout';
-import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import SignUp from './pages/sign-up/SignUp';
-import Discover from './pages/discover/Discover';
-import MyPage from './pages/mypage/MyPage';
-import Chatting from './pages/chatting/Chatting';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Discover from './pages/Discover';
+import MyPage from './pages/MyPage';
+import Chatting from './pages/Chatting';
 import { Chat } from './components';
 
 const App = () => {

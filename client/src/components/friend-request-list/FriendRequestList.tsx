@@ -1,16 +1,5 @@
 import React from 'react';
 import { FriendRequestType } from '../../types';
-import {
-  List,
-  ListItem,
-  ListItemAddress,
-  ListItemBtns,
-  ListItemButton,
-  ListItemImg,
-  ListItemInfo,
-  ListItemIntroduce,
-  ListItemName,
-} from '../friend-list/FriendList.elements';
 
 const FriendRequestList = ({
   friendRequests,
@@ -20,8 +9,9 @@ const FriendRequestList = ({
   acceptFriends: (id: string, isAccept: boolean) => Promise<void>;
 }) => {
   return (
-    <List>
-      {friendRequests.map((item, i) => {
+    <div>
+      친구 요청목록
+      {/* {friendRequests.map((item, i) => {
         console.log(item.isAccept, 'dd');
         return (
           <ListItem key={item.username}>
@@ -29,7 +19,7 @@ const FriendRequestList = ({
 
             <ListItemInfo>
               <ListItemName>{item.username}</ListItemName>
-              {/* <ListItemIntroduce>{item.desc ?? `안녕하세요 ${item.username}입니다.`}</ListItemIntroduce> */}
+              {/* <ListItemIntroduce>{item.desc ?? `안녕하세요 ${item.username}입니다.`}</ListItemIntroduce> 
               <ListItemBtns>
                 {item.isAccept === undefined ? (
                   <>
@@ -43,8 +33,8 @@ const FriendRequestList = ({
             </ListItemInfo>
           </ListItem>
         );
-      })}
-    </List>
+      })} */}
+    </div>
   );
 };
 

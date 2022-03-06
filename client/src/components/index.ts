@@ -6,7 +6,7 @@ export { default as LoadingProgressBar } from './common/loading-progress-bar/Loa
 export { default as LoginForm } from './login-form/LoginForm';
 export { default as SignUpForm } from './sign-up-form/SignUpForm';
 export { default as Map } from './map/Map';
-export { default as FriendList } from './friend-list/FriendList';
-export { default as DiscoverList } from './discover-list/DiscoverList';
+export { default as Friend } from './friend/Friend';
+export { default as Discover } from './discover/Discover';
 export { default as Chat } from './chatting/Chat';
 export { default as ChatList } from './chatting/ChatList';

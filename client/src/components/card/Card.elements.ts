@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const List = styled.ul`
+export const CardList = styled.ul`
   max-height: 700px;
   overflow-y: scroll;
   padding: 5px 15px 500px 10px;
@@ -10,7 +10,7 @@ export const List = styled.ul`
   /* height: 100%; */
 `;
 
-export const ListItem = styled.li`
+export const Card = styled.li`
   display: flex;
   justify-content: flex-start;
   gap: 30px;
@@ -21,7 +21,7 @@ export const ListItem = styled.li`
   box-shadow: 1px 1px 4px 0px rgb(0 0 0 / 20%);
 `;
 
-export const ListItemImg = styled.img`
+export const CardImg = styled.img`
   width: 280px;
   height: 170px;
   border-radius: 10px;
@@ -30,36 +30,36 @@ export const ListItemImg = styled.img`
   object-position: center top;
 `;
 
-export const ListItemInfo = styled.div`
+export const CardInfo = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
 `;
 
-export const ListItemAddress = styled.p`
+export const CardAddress = styled.p`
   margin-bottom: 15px;
   font-size: ${({ theme }) => theme.fontSizes.subTxtSize};
   color: ${({ theme }) => theme.colors.subTitleColor};
 `;
 
-export const ListItemName = styled.h3`
+export const CardName = styled.h3`
   margin-bottom: 25px;
   font-size: ${({ theme }) => theme.fontSizes.titleSize};
   color: ${({ theme }) => theme.colors.txtColor};
   line-height: 1.2;
 `;
 
-export const ListItemIntroduce = styled.p`
+export const CardIntroduce = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.subTxtSize};
 `;
 
-export const ListItemBtns = styled.ul`
+export const CardBtns = styled.ul`
   display: flex;
   margin-top: auto;
   gap: 15px;
 `;
 
-export const ListItemButton = styled.li`
+export const CardButton = styled.li`
   border: 1px solid #ccc;
   cursor: pointer;
 `;

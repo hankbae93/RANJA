@@ -1,6 +1,6 @@
 import React from 'react';
-import { Contents } from '../../components';
-import FriendContainer from '../../containers/FriendContainer';
+import { Contents } from '../components';
+import FriendContainer from '../containers/FriendContainer';
 
 const Home = () => {
   return (

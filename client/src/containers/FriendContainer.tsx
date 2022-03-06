@@ -1,11 +1,25 @@
-import React from 'react';
-import { FriendList } from '../components';
-import useReduxMap from '../hooks/useReduxMap';
+import React, { useEffect, useState } from 'react';
+import axios from '../axios';
+import { Friend } from '../components';
+import { UserInfoType } from '../types';
 
 const FriendContainer = () => {
-  const { friends } = useReduxMap();
+  const [list, setList] = useState<UserInfoType[]>([]);
 
-  return <FriendList list={friends} />;
+  const getFriends = async () => {
+    try {
+      const { data } = await axios.get('/users/friends');
+      setList(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getFriends();
+  }, []);
+
+  return <Friend list={list} />;
 };
 
 export default FriendContainer;

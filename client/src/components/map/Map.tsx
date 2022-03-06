@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { libraries, mapContainerStyle, options } from './Map.settings';
+import { libraries, mapContainerStyle, options, center as MapCenter } from './Map.settings';
 import useAuth from '../../hooks/useAuth';
 import useReduxMap from '../../hooks/useReduxMap';
 import { UserInfoType } from '../../types';
@@ -61,7 +61,7 @@ const Map = () => {
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
-      center={center}
+      center={MapCenter}
       zoom={18}
       options={options}
       onLoad={onMapLoad}

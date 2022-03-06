@@ -1,4 +1,16 @@
-/* Auth Redux */
+/* User Data Type */
+export interface UserInfoType {
+  username: string;
+  email: string;
+  profileImg: string;
+  location: {
+    type: 'Point';
+    coordinates: number[];
+  };
+  desc?: string;
+  friendList?: string[];
+}
+
 export interface AuthState extends RequestState {
   token: string | null;
   user: UserInfoType | null;
@@ -9,17 +21,6 @@ export interface AuthState extends RequestState {
 export interface LoginReqType {
   email: string;
   password: string;
-}
-export interface UserInfoType {
-  username: string;
-  email: string;
-  profileImg: string;
-  location: {
-    type: 'Point';
-    coordinates: number[];
-  };
-  desc?: string;
-  friendList: string[];
 }
 
 // 회원가입 types

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Contents } from '../../components';
-import MyPageContainer from '../../containers/MyPageContainer';
+import { Contents } from '../components';
+import MyPageContainer from '../containers/MyPageContainer';
 
 const MyPage = () => {
   return (
