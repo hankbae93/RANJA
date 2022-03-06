@@ -4,7 +4,6 @@ import MapService from '../../services/MapService';
 import { MapState, MapCenterType, UserInfoType } from '../../types';
 
 const initialState: MapState = {
-  friends: [],
   aroundUsers: [],
   center: {
     lat: 0,
@@ -71,17 +70,17 @@ function* getAroundSaga(action: Action<MapCenterType>) {
   }
 }
 
-function* getFriendsSaga() {
-  try {
-    yield put(pending());
-    const data: UserInfoType[] = yield call(MapService.getFriends);
-    yield put(success({ data, isFriend: true }));
-  } catch (err: any) {
-    yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
-  }
-}
+// function* getFriendsSaga() {
+//   try {
+//     yield put(pending());
+//     const data: UserInfoType[] = yield call(MapService.getFriends);
+//     yield put(success({ data, isFriend: true }));
+//   } catch (err: any) {
+//     yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
+//   }
+// }
 
 export function* mapSaga() {
   yield takeLatest(`${prefix}/GET_AROUND`, getAroundSaga);
-  yield takeEvery(`${prefix}/GET_FRIENDS`, getFriendsSaga);
+  // yield takeEvery(`${prefix}/GET_FRIENDS`, getFriendsSaga);
 }

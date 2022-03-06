@@ -1,22 +1,19 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { libraries, mapContainerStyle, options, center as MapCenter } from './Map.settings';
+import { GoogleMap } from '@react-google-maps/api';
+import { mapContainerStyle, options, center as MapCenter } from './Map.settings';
 import useAuth from '../../hooks/useAuth';
 import useReduxMap from '../../hooks/useReduxMap';
 import { UserInfoType } from '../../types';
 import { getAround as getAroundSagaStart } from '../../redux/modules/map';
 
 import CustomInfoWindow from './custom-info-window/CustomInfoWindow';
+import CustomMarker from './custom-marker/CustomMarker';
 
 const Map = () => {
   const dispatch = useDispatch();
   const user = useAuth();
   const { aroundUsers, center } = useReduxMap();
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY!,
-    libraries,
-  });
   const [selected, setSelected] = useState<UserInfoType | null>();
   const mapRef = useRef<google.maps.Map>();
 
@@ -55,9 +52,6 @@ const Map = () => {
     }
   }, [center, user]);
 
-  if (loadError) return <div>map loading error </div>;
-  if (!isLoaded) return <div>cannot load map</div>;
-
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
@@ -69,48 +63,33 @@ const Map = () => {
     >
       {aroundUsers.map((item) => {
         if (item.username === user?.username) return null;
+        const position = { lat: item.location.coordinates[1], lng: item.location.coordinates[0] };
 
         return (
-          <Marker
+          <CustomMarker
             key={item.username}
-            position={{ lat: item.location.coordinates[1], lng: item.location.coordinates[0] }}
-            onClick={() => {
-              setSelected(item);
-            }}
-            icon={{
-              url: `assets/icons/marker.svg`,
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15),
-              scaledSize: new window.google.maps.Size(30, 30),
-            }}
+            position={position}
+            onClick={() => setSelected(item)}
+            isUser={item.username === user?.username}
           />
         );
       })}
 
       {user && (
-        <Marker
-          key="user"
-          position={{ lat: user.location.coordinates[1], lng: user.location.coordinates[0] }}
-          onClick={() => {
-            setSelected(user);
-          }}
-          icon={{
-            url: `assets/icons/map_home.svg`,
-            origin: new window.google.maps.Point(0, 0),
-            anchor: new window.google.maps.Point(15, 15),
-            scaledSize: new window.google.maps.Size(50, 50),
-          }}
+        <CustomMarker
+          position={{ lat: user.location.coordinates[1], lng: user.location.coordinates[1] }}
+          onClick={() => setSelected(user)}
+          isUser
         />
       )}
 
-      {selected ? (
-        <InfoWindow
+      {selected && (
+        <CustomInfoWindow
+          data={selected}
           position={{ lat: selected.location.coordinates[1], lng: selected.location.coordinates[0] }}
           onCloseClick={() => setSelected(null)}
-        >
-          <CustomInfoWindow data={selected} />
-        </InfoWindow>
-      ) : null}
+        />
+      )}
     </GoogleMap>
   );
 };

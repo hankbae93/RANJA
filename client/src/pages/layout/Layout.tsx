@@ -1,12 +1,13 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Wrapper, ContentWrapper, ComponentWrapper, MapWrapper } from './Layout.elements';
-import { Header, Navbar, RequiredAuth } from '../../components';
+import { Header, Navbar } from '../../components';
 import MapContainer from '../../containers/MapContainer';
+import RequireAuth from '../required-auth/RequiredAuth';
 
 const Layout = () => {
   return (
-    <RequiredAuth>
+    <RequireAuth>
       <Wrapper>
         <ComponentWrapper>
           <Header />
@@ -21,7 +22,7 @@ const Layout = () => {
           <MapContainer />
         </MapWrapper>
       </Wrapper>
-    </RequiredAuth>
+    </RequireAuth>
   );
 };
 

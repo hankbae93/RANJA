@@ -46,7 +46,6 @@ export interface InputDefaultTypes {
 
 // map
 export interface MapState extends RequestState {
-  friends: UserInfoType[];
   aroundUsers: UserInfoType[];
   center: MapCenterType;
 }

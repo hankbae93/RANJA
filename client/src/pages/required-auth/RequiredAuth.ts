@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import useAuth from '../../../hooks/useAuth';
-import { loadMyInfo as loadMyInfoSagaStart } from '../../../redux/modules/auth';
-import { getFriends as getFriendsSagaStart } from '../../../redux/modules/map';
+import useAuth from '../../hooks/useAuth';
+import { loadMyInfo as loadMyInfoSagaStart } from '../../redux/modules/auth';
+import { getFriends as getFriendsSagaStart } from '../../redux/modules/map';
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const dispatch = useDispatch();
