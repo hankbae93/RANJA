@@ -3,6 +3,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { push } from 'redux-first-history';
 import UserService from '../../services/UserService';
 import { LoginReqType, AuthState, UserInfoType } from '../../types';
+import { initialize as mapInitialize } from './map';
 
 const initialState: AuthState = {
   token: null,
@@ -67,6 +68,7 @@ function* logoutSaga() {
     yield put(pending());
     yield call(UserService.logout);
     yield put(initialize());
+    yield put(mapInitialize());
     yield put(push('/'));
   } catch (err: any) {
     yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));

@@ -15,9 +15,16 @@ const initialState: MapState = {
 
 const prefix = 'RANJA/map';
 
-export const { pending, success, failure, update } = createActions('PENDING', 'SUCCESS', 'FAILURE', 'UPDATE', {
-  prefix,
-});
+export const { pending, success, failure, update, initialize } = createActions(
+  'PENDING',
+  'SUCCESS',
+  'FAILURE',
+  'UPDATE',
+  'INITIALIZE',
+  {
+    prefix,
+  },
+);
 
 const reducer = handleActions<MapState, UserInfoType[]>(
   {
@@ -47,6 +54,7 @@ const reducer = handleActions<MapState, UserInfoType[]>(
         lng: action.payload.lng ?? state.center.lng,
       },
     }),
+    INITIALIZE: (state) => initialState,
   },
   initialState,
   { prefix },
