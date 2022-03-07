@@ -3,9 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import useAuth from '../../hooks/useAuth';
 import { loadMyInfo as loadMyInfoSagaStart } from '../../redux/modules/auth';
-import { getFriends as getFriendsSagaStart } from '../../redux/modules/map';
 
-const RequireAuth = ({ children }: { children: JSX.Element }) => {
+const RequiredAuth = ({ children }: { children: JSX.Element }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,23 +15,14 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      dispatch(getFriendsSagaStart());
-    }
-  }, [user]);
-
-  useEffect(() => {
     const { pathname } = location;
-    const publicPath = ['/', '/home', '/discover', '/sign-up', '/login'];
-
+    const publicPath = ['/home', '/discover', '/sign-up', '/login'];
     if (!publicPath.some((path) => path === pathname) && !user) {
-      console.log(user);
-
-      // navigate('/');
+      navigate('/discover');
     }
-  }, [location.pathname, user]);
+  }, [location.pathname]);
 
   return children;
 };
 
-export default RequireAuth;
+export default RequiredAuth;

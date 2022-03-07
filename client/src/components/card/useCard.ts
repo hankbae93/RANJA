@@ -10,7 +10,14 @@ const useCard = (item: UserInfoType) => {
   const { chat } = useNewRoom();
   const { moveMap } = useMap();
 
+  const checkLogin = () => {
+    if (!user) {
+      alert('로그인 후 사용가능하십니다.');
+    }
+  };
+
   const addFriends = useCallback(async () => {
+    checkLogin();
     try {
       await axios.post(`/friendRequest/${item.username}`);
       alert('친구 요청이 성공하셧습니다.');
@@ -20,6 +27,7 @@ const useCard = (item: UserInfoType) => {
   }, [item]);
 
   const moveUserChat = useCallback(() => {
+    checkLogin();
     chat(item.username);
   }, [item]);
 
@@ -32,6 +40,7 @@ const useCard = (item: UserInfoType) => {
   }, [item]);
 
   const acceptFriends = async (id: string, isAccept: boolean): Promise<void> => {
+    checkLogin();
     try {
       await axios.post(`/friendRequest/accept/${id}`, { isAccept });
     } catch (err) {

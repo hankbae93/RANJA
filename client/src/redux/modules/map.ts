@@ -58,7 +58,7 @@ const reducer = handleActions<MapState, { isFriend: boolean; data: UserInfoType[
 export default reducer;
 
 // saga
-export const { getAround, getFriends } = createActions('GET_AROUND', 'GET_FRIENDS', { prefix });
+export const { getAround } = createActions('GET_AROUND', { prefix });
 
 function* getAroundSaga(action: Action<MapCenterType>) {
   try {
@@ -70,17 +70,6 @@ function* getAroundSaga(action: Action<MapCenterType>) {
   }
 }
 
-// function* getFriendsSaga() {
-//   try {
-//     yield put(pending());
-//     const data: UserInfoType[] = yield call(MapService.getFriends);
-//     yield put(success({ data, isFriend: true }));
-//   } catch (err: any) {
-//     yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
-//   }
-// }
-
 export function* mapSaga() {
-  yield takeLatest(`${prefix}/GET_AROUND`, getAroundSaga);
-  // yield takeEvery(`${prefix}/GET_FRIENDS`, getFriendsSaga);
+  yield takeEvery(`${prefix}/GET_AROUND`, getAroundSaga);
 }

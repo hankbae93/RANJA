@@ -45,12 +45,12 @@ const Map = () => {
   }, [user]);
 
   useEffect(() => {
-    if (mapRef.current && user) {
+    if (mapRef.current) {
       mapRef.current.panTo({ lat: center.lat, lng: center.lng });
       mapRef.current.setZoom(18);
       dispatch(getAroundSagaStart(center));
     }
-  }, [center, user]);
+  }, [center]);
 
   return (
     <GoogleMap
