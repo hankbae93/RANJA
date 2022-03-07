@@ -1,5 +1,7 @@
 # RANJA
 
+<a href="https://ranja-app.herokuapp.com/">SITE 이동</a>
+
     구글 맵 기반 채팅 메신저 플랫폼
 
 - Front
