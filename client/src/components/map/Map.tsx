@@ -38,12 +38,12 @@ const Map = () => {
     if (mapRef.current && user?.location) {
       mapRef.current.panTo({ lat: user.location.coordinates[1], lng: user.location.coordinates[0] });
       mapRef.current.setZoom(18);
-      dispatch(getAroundSagaStart({ lat: user.location.coordinates[1], lng: user.location.coordinates[0] }));
     }
   }, [mapRef, user]);
 
   useEffect(() => {
     if (user?.location) {
+      console.log(user, 'dlehd');
       panTo();
     }
   }, [user]);
@@ -60,7 +60,7 @@ const Map = () => {
         dispatch(getAroundSagaStart(center));
       }
     }
-  }, [center, user]);
+  }, [center]);
 
   return (
     <GoogleMap
