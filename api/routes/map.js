@@ -56,8 +56,6 @@ router.post("/around/auth", isLoggedIn, async (req, res) => {
 			return { ...others, isFriend };
 		});
 
-		console.log(data);
-
 		return res.status(200).json(data);
 	} catch (err) {
 		console.error(err);

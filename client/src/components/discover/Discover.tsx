@@ -10,7 +10,7 @@ const Discover = ({ list }: { list: UserInfoType[] }) => {
     <CardList>
       {list.map((item, i) => {
         if (item.username === user?.username) return false;
-        return <Card key={item.username} item={item} type="USER" isFriend={false} />;
+        return <Card key={item.username} item={item} type="USER" />;
       })}
     </CardList>
   );

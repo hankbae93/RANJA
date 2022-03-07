@@ -27,8 +27,12 @@ const Map = () => {
     const lat = mapRef.current?.getCenter()?.lat();
     const lng = mapRef.current?.getCenter()?.lng();
     const coords = { lat, lng };
-    dispatch(getAroundSagaStart(coords));
-  }, [mapRef]);
+    if (user) {
+      dispatch(getAroundAuthSagaStart(coords));
+    } else {
+      dispatch(getAroundSagaStart(coords));
+    }
+  }, [mapRef, user]);
 
   const panTo = useCallback(() => {
     if (mapRef.current && user?.location) {
