@@ -10,6 +10,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const cors = require("cors");
+const path = require("path");
 
 const webSocket = require("./socket");
 const passportConfig = require("./passport");
@@ -41,9 +42,8 @@ app.use(
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(multer().array());
 app.use(helmet());
-app.use(morgan("dev"));
+app.use(morgan("common"));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
 	session({
@@ -62,8 +62,18 @@ app.use("/api/map", mapRoute);
 app.use("/api/room", roomRoute);
 app.use("/api/chat", chatRoute);
 
-server.listen(8000, () => {
-	console.log("Backend server is running!");
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static("client/build"));
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+	});
+}
+
+const port = process.env.PORT || 8000;
+
+server.listen(port, () => {
+	console.log(port + " Backend server is running!");
 });
 
 webSocket(server, app);

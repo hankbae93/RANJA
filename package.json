@@ -1,13 +1,19 @@
 {
-	"name": "api",
+	"name": "ranja-app",
 	"version": "1.0.0",
-	"description": "",
+	"description": "chat the world",
 	"main": "index.js",
-	"scripts": {
-		"start": "nodemon index.js"
+	"engine": {
+		"node": "16.13.1",
+		"npm": "8.1.2"
 	},
-	"keywords": [],
-	"author": "",
+	"scripts": {
+		"start": "node api/index.js",
+		"backend": "nodemon api/index.js",
+		"frontend": "npm run front --prefix client",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+	},
+	"author": "ranjafunc",
 	"license": "ISC",
 	"devDependencies": {
 		"nodemon": "^2.0.15"
