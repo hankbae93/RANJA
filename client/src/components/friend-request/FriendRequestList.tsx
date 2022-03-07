@@ -6,7 +6,7 @@ const FriendRequestList = ({ list }: { list: CardDataType[] }) => {
   return (
     <CardList>
       {list.map((item, i) => {
-        return <Card key={item.username} item={item} type="REQUEST" />;
+        return <Card key={item.username} item={item} type="REQUEST" isFriend={false} />;
       })}
     </CardList>
   );

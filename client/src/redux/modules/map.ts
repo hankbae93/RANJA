@@ -19,7 +19,7 @@ export const { pending, success, failure, update } = createActions('PENDING', 'S
   prefix,
 });
 
-const reducer = handleActions<MapState, { isFriend: boolean; data: UserInfoType[] }>(
+const reducer = handleActions<MapState, UserInfoType[]>(
   {
     PENDING: (state) => ({
       ...state,
@@ -27,15 +27,12 @@ const reducer = handleActions<MapState, { isFriend: boolean; data: UserInfoType[
       error: null,
     }),
     SUCCESS: (state, action) => {
-      const {
-        payload: { isFriend, data },
-      } = action;
+      const { payload } = action;
       return {
         ...state,
         loading: false,
         error: null,
-        ...(!isFriend && { aroundUsers: data }),
-        ...(isFriend && { friends: data }),
+        aroundUsers: payload,
       };
     },
     FAILURE: (state, action: any) => ({
@@ -58,18 +55,31 @@ const reducer = handleActions<MapState, { isFriend: boolean; data: UserInfoType[
 export default reducer;
 
 // saga
-export const { getAround } = createActions('GET_AROUND', { prefix });
+export const { getAround, getAroundAuth } = createActions('GET_AROUND', 'GET_AROUND_AUTH', { prefix });
 
 function* getAroundSaga(action: Action<MapCenterType>) {
   try {
     yield put(pending());
-    const data: UserInfoType[] = yield call(MapService.getAround, action.payload);
-    yield put(success({ data, isFriend: false }));
+    const data: UserInfoType[] = yield call(MapService.getAroundNormal, action.payload);
+    yield put(success(data));
   } catch (err: any) {
+    console.log(err);
+    yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
+  }
+}
+
+function* getAroundAuthSaga(action: Action<MapCenterType>) {
+  try {
+    yield put(pending());
+    const data: UserInfoType[] = yield call(MapService.getAroundAuth, action.payload);
+    yield put(success(data));
+  } catch (err: any) {
+    console.log(err);
     yield put(failure(err?.response?.data || 'UNKNOWN ERROR'));
   }
 }
 
 export function* mapSaga() {
   yield takeEvery(`${prefix}/GET_AROUND`, getAroundSaga);
+  yield takeEvery(`${prefix}/GET_AROUND_AUTH`, getAroundAuthSaga);
 }

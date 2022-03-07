@@ -9,6 +9,7 @@ export interface UserInfoType {
   };
   desc?: string;
   friendList?: string[];
+  isFriend?: boolean;
 }
 
 export interface AuthState extends RequestState {

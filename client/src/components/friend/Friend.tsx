@@ -11,7 +11,7 @@ const Friend = ({ list }: FriendProps) => {
   return (
     <CardList>
       {list.map((item, i) => {
-        return <Card key={item.username} item={item} type="USER" />;
+        return <Card key={item.username} item={item} type="USER" isFriend />;
       })}
     </CardList>
   );

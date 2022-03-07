@@ -11,16 +11,17 @@ export interface CardDataType extends UserInfoType {
 interface CardProps {
   item: CardDataType;
   type: 'USER' | 'REQUEST';
+  isFriend: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ item, type }) => {
+const Card: React.FC<CardProps> = ({ item, type, isFriend }) => {
   const { addFriends, moveUserChat, moveUserHouse, acceptFriends } = useCard(item);
 
   const renderButton = (): React.ReactNode | false => {
     if (type === 'USER') {
       return (
         <CardBtns>
-          <CardButton onClick={addFriends}>친구 추가</CardButton>
+          {item.isFriend && <CardButton onClick={addFriends}>친구 추가</CardButton>}
           <CardButton onClick={moveUserChat}>채팅</CardButton>
           <CardButton onClick={moveUserHouse}>HOME</CardButton>
         </CardBtns>

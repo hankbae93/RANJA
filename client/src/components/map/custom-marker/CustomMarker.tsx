@@ -15,7 +15,7 @@ const CustomMarker = ({ position, onClick, isUser }: MarkerProps) => {
     url: isUser ? `assets/icons/map_home.svg` : `assets/icons/marker.svg`,
     origin: new window.google.maps.Point(0, 0),
     anchor: new window.google.maps.Point(15, 15),
-    scaledSize: new window.google.maps.Size(30, 30),
+    scaledSize: isUser ? new window.google.maps.Size(50, 50) : new window.google.maps.Size(30, 30),
   };
 
   return <Marker position={position} onClick={onClick} icon={iconOption} />;

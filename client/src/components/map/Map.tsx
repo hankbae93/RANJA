@@ -5,7 +5,7 @@ import { mapContainerStyle, options, center as MapCenter } from './Map.settings'
 import useAuth from '../../hooks/useAuth';
 import useReduxMap from '../../hooks/useReduxMap';
 import { UserInfoType } from '../../types';
-import { getAround as getAroundSagaStart } from '../../redux/modules/map';
+import { getAround as getAroundSagaStart, getAroundAuth as getAroundAuthSagaStart } from '../../redux/modules/map';
 
 import CustomInfoWindow from './custom-info-window/CustomInfoWindow';
 import CustomMarker from './custom-marker/CustomMarker';
@@ -48,9 +48,15 @@ const Map = () => {
     if (mapRef.current) {
       mapRef.current.panTo({ lat: center.lat, lng: center.lng });
       mapRef.current.setZoom(18);
-      dispatch(getAroundSagaStart(center));
+      if (user) {
+        console.log('머하냐?');
+        dispatch(getAroundAuthSagaStart(center));
+      } else {
+        console.log('머하냐?');
+        dispatch(getAroundSagaStart(center));
+      }
     }
-  }, [center]);
+  }, [center, user]);
 
   return (
     <GoogleMap
@@ -66,18 +72,13 @@ const Map = () => {
         const position = { lat: item.location.coordinates[1], lng: item.location.coordinates[0] };
 
         return (
-          <CustomMarker
-            key={item.username}
-            position={position}
-            onClick={() => setSelected(item)}
-            isUser={item.username === user?.username}
-          />
+          <CustomMarker key={item.username} position={position} onClick={() => setSelected(item)} isUser={false} />
         );
       })}
 
       {user && (
         <CustomMarker
-          position={{ lat: user.location.coordinates[1], lng: user.location.coordinates[1] }}
+          position={{ lat: user.location.coordinates[1], lng: user.location.coordinates[0] }}
           onClick={() => setSelected(user)}
           isUser
         />
