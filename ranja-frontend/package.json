@@ -1,0 +1,23 @@
+{
+	"name": "ranja-app",
+	"version": "1.0.0",
+	"description": "chat the world",
+	"homepage": "ranja.o-r.kr",
+	"dependencies": {
+		"express": "^4.17.3",
+		"http-proxy-middleware": "^2.0.3"
+	},
+	"engine": {
+		"node": "16.13.1",
+		"npm": "8.1.2"
+	},
+	"scripts": {
+		"start": "node index.js",
+		"backend": "nodemon index.js",
+		"frontend": "npm run front --prefix client",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+	},
+	"keywords": [],
+	"author": "ranjafunc",
+	"license": "ISC"
+}
