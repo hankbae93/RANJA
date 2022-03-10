@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import axios from '../axios';
+import axios from 'axios';
 import { ChatList } from '../components';
 import useAuth from '../hooks/useAuth';
 import { ChatRoomType } from '../types';
 
-const SOCKET_URL =
-  process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PRODUCTION_API_SERVER : 'http://localhost:8000';
+const { NODE_ENV, REACT_APP_DEV_API_SERVER, REACT_APP_PRODUCTION_API_SERVER } = process.env;
+
+const SOCKET_URL = NODE_ENV === 'production' ? REACT_APP_PRODUCTION_API_SERVER : REACT_APP_DEV_API_SERVER;
 
 const ChattingContainer = () => {
   const [rooms, setRooms] = useState<ChatRoomType[]>([]);
@@ -35,7 +36,6 @@ const ChattingContainer = () => {
       });
 
       socket.current.on('newRoom', (data: ChatRoomType) => {
-        console.log(data, '새방 생겻다');
         setRooms((prev) => prev.concat(data));
       });
     }

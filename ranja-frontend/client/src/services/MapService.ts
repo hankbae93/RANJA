@@ -1,4 +1,4 @@
-import axios from '../axios';
+import axios from 'axios';
 import { MapCenterType, UserInfoType } from '../types';
 
 export default class MapService {

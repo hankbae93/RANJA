@@ -1,4 +1,4 @@
-import axios from '../axios';
+import axios from 'axios';
 import { LoginReqType } from '../types';
 
 export default class UserService {

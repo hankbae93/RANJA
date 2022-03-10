@@ -10,7 +10,6 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const cors = require("cors");
-const path = require("path");
 
 const webSocket = require("./socket");
 const passportConfig = require("./passport");
@@ -25,7 +24,7 @@ const chatRoute = require("./routes/chat");
 dotenv.config();
 passportConfig();
 
-const { COOKIE_SECRET, MONGO_URL } = process.env;
+const { COOKIE_SECRET, MONGO_URL, NODE_ENV } = process.env;
 
 mongoose.connect(
 	MONGO_URL,
@@ -35,30 +34,52 @@ mongoose.connect(
 	}
 );
 
-app.use(morgan("combined"));
+if (NODE_ENV === "production") {
+	app.use(morgan("combined"));
+
+	app.use(
+		cors({
+			origin: ["http://localhost:3000", "http://www.ranja.o-r.kr"],
+			credentials: true,
+		})
+	);
+
+	app.use(
+		session({
+			saveUninitialized: false,
+			resave: false,
+			secret: COOKIE_SECRET,
+			cookie: {
+				httpOnly: true,
+				secure: false,
+				domain: ".ranja.o-r.kr",
+			},
+		})
+	);
+} else {
+	app.use(morgan("dev"));
+
+	app.use(
+		cors({
+			origin: ["http://localhost:3000", "http://www.ranja.o-r.kr"],
+			credentials: true,
+		})
+	);
+
+	app.use(
+		session({
+			saveUninitialized: false,
+			resave: false,
+			secret: COOKIE_SECRET,
+		})
+	);
+}
 app.use(helmet());
-app.use(
-	cors({
-		origin: ["http://localhost:3000", "http://www.ranja.o-r.kr"],
-		credentials: true,
-	})
-);
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser(COOKIE_SECRET));
-app.use(
-	session({
-		saveUninitialized: false,
-		resave: false,
-		secret: COOKIE_SECRET,
-		cookie: {
-			httpOnly: true,
-			secure: false,
-			domain: ".ranja.o-r.kr",
-		},
-	})
-);
+
 app.use(passport.initialize());
 app.use(passport.session());
 

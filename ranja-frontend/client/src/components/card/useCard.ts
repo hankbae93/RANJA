@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import axios from '../../axios';
+import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
 import useMap from '../../hooks/useMap';
 import useNewRoom from '../../hooks/useNewRoom';

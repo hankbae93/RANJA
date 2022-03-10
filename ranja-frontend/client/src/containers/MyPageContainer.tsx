@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../axios';
+import axios from 'axios';
 import { CardDataType } from '../components/card/Card';
 import FriendRequestList from '../components/friend-request/FriendRequestList';
 

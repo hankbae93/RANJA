@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../axios';
+import axios from 'axios';
 import { SignUpForm } from '../components';
 import { IMGBB_KEY } from '../url';
 import { FormDataType } from '../types';

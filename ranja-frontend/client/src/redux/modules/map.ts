@@ -1,6 +1,6 @@
 import { Action, createActions, handleActions } from 'redux-actions';
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
-import MapService from '../../services/MapService';
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { MapService } from '../../services';
 import { MapState, MapCenterType, UserInfoType } from '../../types';
 
 const initialState: MapState = {

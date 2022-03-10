@@ -1,7 +1,7 @@
 import { Action, createActions, handleActions } from 'redux-actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { push } from 'redux-first-history';
-import UserService from '../../services/UserService';
+import { UserService } from '../../services';
 import { LoginReqType, AuthState, UserInfoType } from '../../types';
 import { initialize as mapInitialize } from './map';
 

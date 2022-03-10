@@ -8,7 +8,8 @@
 		"npm": "8.1.2"
 	},
 	"scripts": {
-		"start": "NODE_ENV=production pm2 start node index.js"
+		"start": "NODE_ENV=production pm2 start node index.js",
+		"dev": "nodemon index.js"
 	},
 	"author": "ranjafunc",
 	"license": "ISC",

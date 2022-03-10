@@ -2,11 +2,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import axios from '../../axios';
+import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
 import { UserInfoType } from '../../types';
 import { ChatButton, ChatForm, ChatInput, ChatLog, ChatWrapper } from './Chat.elements';
 import Message from './Message';
+import LoadingProgressBar from '../common/loading-progress-bar/LoadingProgressBar';
 
 interface ChatMessageType {
   room: string;
@@ -27,6 +28,7 @@ const Chat = () => {
   const socket = useRef<any>(null);
   const txtRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const chatRef = useRef() as React.MutableRefObject<HTMLUListElement>;
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (user && id) {
@@ -63,16 +65,18 @@ const Chat = () => {
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
+      setLoading(true);
       try {
         const data = {
           roomId: id,
           chat: txtRef.current.value,
         };
         await axios.post(`/chat/message`, data);
+        setLoading(false);
         txtRef.current.value = '';
         txtRef.current.focus();
       } catch (err) {
+        setLoading(false);
         console.log(err);
       }
     },
@@ -97,7 +101,7 @@ const Chat = () => {
 
       <ChatForm onSubmit={handleSubmit}>
         <ChatInput name="message" ref={txtRef} />
-        <ChatButton type="submit">전송</ChatButton>
+        <ChatButton type="submit">{loading ? <LoadingProgressBar /> : '전송'}</ChatButton>
       </ChatForm>
     </ChatWrapper>
   );

@@ -18,7 +18,9 @@ export const ChatLog = styled.ul`
 export const ChatForm = styled.form`
   display: flex;
   align-items: center;
+  gap: 5px;
   padding: 0 15px;
+  margin-bottom: 15px;
   height: 30px;
 `;
 
@@ -26,11 +28,19 @@ export const ChatInput = styled.input`
   flex: 1;
   height: 100%;
   /* border: none; */
+  padding: 0 15px;
+  border-radius: 10px;
+  background-color: transparent;
 `;
 
 export const ChatButton = styled.button`
-  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 100px;
   height: 100%;
+  border: none;
 `;
 
 export const ChatRoomIcon = styled.div`
