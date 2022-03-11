@@ -8,7 +8,7 @@ const router = require("express").Router();
 router.get("/", isLoggedIn, async (req, res) => {
 	try {
 		const requestLists = await FriendRequest.find({
-			receiverId: ObjectId(req.user.id),
+			receiver: req.user.id,
 		});
 
 		const newData = await Promise.all(

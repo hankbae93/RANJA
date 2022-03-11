@@ -1,4 +1,6 @@
 import React from 'react';
+import { PersonPlus, PersonCheckFill, PersonXFill, HouseFill, ChatFill } from '@styled-icons/bootstrap';
+import useAuth from '../../hooks/useAuth';
 import { UserInfoType } from '../../types';
 import { Card as Wrapper, CardBtns, CardButton, CardImg, CardInfo, CardIntroduce, CardName } from './Card.elements';
 import useCard from './useCard';
@@ -15,14 +17,38 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ item, type }) => {
   const { addFriends, moveUserChat, moveUserHouse, acceptFriends } = useCard(item);
+  const user = useAuth();
 
   const renderButton = (): React.ReactNode | false => {
+    if (!user) {
+      return (
+        <CardBtns>
+          <CardButton onClick={moveUserHouse}>
+            <HouseFill width={20} />
+            <span>HOME</span>
+          </CardButton>
+        </CardBtns>
+      );
+    }
     if (type === 'USER') {
       return (
         <CardBtns>
-          {!item.isFriend && <CardButton onClick={addFriends}>친구 추가</CardButton>}
-          {item.isFriend && <CardButton onClick={moveUserChat}>채팅</CardButton>}
-          <CardButton onClick={moveUserHouse}>HOME</CardButton>
+          {!item.isFriend && (
+            <CardButton onClick={addFriends}>
+              <PersonPlus width={20} />
+              <span>친구 추가</span>
+            </CardButton>
+          )}
+          {item.isFriend && (
+            <CardButton onClick={moveUserChat}>
+              <ChatFill width={20} />
+              <span>채팅</span>
+            </CardButton>
+          )}
+          <CardButton onClick={moveUserHouse}>
+            <HouseFill width={20} />
+            <span>HOME</span>
+          </CardButton>
         </CardBtns>
       );
     }
@@ -30,8 +56,14 @@ const Card: React.FC<CardProps> = ({ item, type }) => {
     if (type === 'FRIEND') {
       return (
         <CardBtns>
-          <CardButton onClick={moveUserChat}>채팅</CardButton>
-          <CardButton onClick={moveUserHouse}>HOME</CardButton>
+          <CardButton onClick={moveUserChat}>
+            <ChatFill width={20} />
+            <span>채팅</span>
+          </CardButton>
+          <CardButton onClick={moveUserHouse}>
+            <HouseFill width={20} />
+            <span>HOME</span>
+          </CardButton>
         </CardBtns>
       );
     }
@@ -41,8 +73,14 @@ const Card: React.FC<CardProps> = ({ item, type }) => {
         <CardBtns>
           {item.isAccept === undefined && item.id ? (
             <>
-              <CardButton onClick={() => acceptFriends(item.id ?? '', true)}>수락</CardButton>
-              <CardButton onClick={() => acceptFriends(item.id ?? '', false)}>거절</CardButton>
+              <CardButton onClick={() => acceptFriends(item.id ?? '', true)}>
+                <PersonCheckFill width={20} />
+                <span>수락</span>
+              </CardButton>
+              <CardButton onClick={() => acceptFriends(item.id ?? '', false)}>
+                <PersonXFill width={20} />
+                <span>거절</span>
+              </CardButton>
             </>
           ) : (
             <p>{item.isAccept ? '수락하셧습니다.' : '거절하셨습니다.'}</p>

@@ -34,15 +34,14 @@ mongoose.connect(
 	}
 );
 
+app.use(
+	cors({
+		origin: ["http://localhost:3000", "http://www.ranja.o-r.kr"],
+		credentials: true,
+	})
+);
 if (NODE_ENV === "production") {
 	app.use(morgan("combined"));
-
-	app.use(
-		cors({
-			origin: ["http://localhost:3000", "http://www.ranja.o-r.kr"],
-			credentials: true,
-		})
-	);
 
 	app.use(
 		session({
@@ -58,13 +57,6 @@ if (NODE_ENV === "production") {
 	);
 } else {
 	app.use(morgan("dev"));
-
-	app.use(
-		cors({
-			origin: ["http://localhost:3000", "http://www.ranja.o-r.kr"],
-			credentials: true,
-		})
-	);
 
 	app.use(
 		session({

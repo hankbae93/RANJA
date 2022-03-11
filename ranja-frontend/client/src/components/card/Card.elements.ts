@@ -60,6 +60,19 @@ export const CardBtns = styled.ul`
 `;
 
 export const CardButton = styled.li`
-  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 10px;
   cursor: pointer;
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.bgActiveColor};
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 20%);
+  }
+
+  :hover * {
+    color: ${({ theme }) => theme.colors.navActiveTxtColor};
+  }
 `;

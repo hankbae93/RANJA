@@ -39,9 +39,7 @@ const reducer = handleActions<AuthState, UserInfoType | null>(
       loading: false,
       error: action.payload,
     }),
-    INITIALIZE: (state) => ({
-      ...initialState,
-    }),
+    INITIALIZE: (state) => initialState,
   },
   initialState,
   { prefix },
