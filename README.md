@@ -5,8 +5,8 @@
     구글 맵 기반 채팅 메신저 플랫폼
 
 <p>
-client repository: 
-<a href="https://github.com/ranjafunc/ranja-frontend">https://github.com/ranjafunc/ranja-frontend</a>
+client repository: 현재 변경 작업 중에 있습니다. 
+<!-- <a href="https://github.com/ranjafunc/ranja-frontend">https://github.com/ranjafunc/ranja-frontend</a> -->
 </p>
 <p>
 api repository: 
